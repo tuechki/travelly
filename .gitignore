@@ -39,5 +39,8 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 *mvnw
+<<<<<<< HEAD
 *.cmd
 
+=======
+>>>>>>> f7f05f337bf14492d32e3b01b60bbeedbd29e2a9
