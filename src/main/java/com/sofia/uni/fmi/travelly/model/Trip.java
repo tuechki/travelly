@@ -53,4 +53,5 @@ public class Trip {
     @Column
     private Set<User> users;
 
+
 }
