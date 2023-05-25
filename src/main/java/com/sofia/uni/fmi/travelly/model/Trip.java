@@ -49,4 +49,8 @@ public class Trip {
 
     @Column
     private List<Item> items;
+
+    @Column
+    private Set<User> users;
+
 }
