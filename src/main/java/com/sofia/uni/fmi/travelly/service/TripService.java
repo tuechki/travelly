@@ -48,4 +48,11 @@ public class TripService {
         tripService.deleteAllItems(tripId);
     }
 
+    public Trip constructTripEntityBy(TripDto tripDto, User user) {
+        Trip trip = tripMapper.toEntity(tripDto);
+        trip.getUsers().add(user);
+
+        return trip;
+    }
+
 }
