@@ -3,7 +3,9 @@ package com.sofia.uni.fmi.travelly.service;
 import com.sofia.uni.fmi.travelly.dto.ItemDto;
 import com.sofia.uni.fmi.travelly.model.Item;
 import com.sofia.uni.fmi.travelly.repository.ItemRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ItemService {
     private ItemRepository itemRepository;
 
