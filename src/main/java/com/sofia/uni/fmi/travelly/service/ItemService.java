@@ -13,7 +13,7 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public Item updateItem(Long itemId, Item item) {
+    public Item updateItem(Item item) {
         Item savedItem = itemRepository.save(item);
         return savedItem;
     }
