@@ -20,7 +20,7 @@ public class ActivityController {
     @PutMapping("{activityId}")
     public ActivityDto updateActivity(@RequestParam Long activityId, @RequestBody ActivityDto activityDto) {
         Activity activity = activityMapper.toEntity(activityDto);
-        Activity updatedActivity = activityService.updateActivityById(activityId, activity);
+        Activity updatedActivity = activityService.updateActivity(activityId, activity);
         ActivityDto updatedActivityDto = activityMapper.toDto(updatedActivity);
 
         return updatedActivityDto;
@@ -28,6 +28,6 @@ public class ActivityController {
 
     @DeleteMapping("{activityId}")
     public void deleteActivity(@RequestParam Long activityId) {
-        activityService.deleteActivityById(activityId);
+        activityService.deleteActivity(activityId);
     }
 }
