@@ -20,7 +20,7 @@ public class ItemController {
     public ItemDto updateItem(@RequestParam Long itemId, @RequestBody ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto);
         item.setId(itemId);
-        Item updatedItem = itemService.updateItemById(itemId, item);
+        Item updatedItem = itemService.updateItem(itemId, item);
         ItemDto updatedItemDto = itemMapper.toDto(updatedItem);
 
         return updatedItemDto;
@@ -28,6 +28,6 @@ public class ItemController {
 
     @DeleteMapping("{itemId}")
     public void deleteItem(@RequestParam Long itemId) {
-        itemService.deleteItemById(itemId);
+        itemService.deleteItem(itemId);
     }
 }
