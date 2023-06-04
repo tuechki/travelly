@@ -17,7 +17,7 @@ public class ItemController {
     }
 
     @PutMapping("{itemId}")
-    public ItemDto updateItemById(@RequestParam Long itemId, @RequestBody ItemDto itemDto) {
+    public ItemDto updateItem(@RequestParam Long itemId, @RequestBody ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto);
         item.setId(itemId);
         Item updatedItem = itemService.updateItemById(itemId, item);
@@ -27,7 +27,7 @@ public class ItemController {
     }
 
     @DeleteMapping("{itemId}")
-    public void deleteItemById(@RequestParam Long itemId) {
+    public void deleteItem(@RequestParam Long itemId) {
         itemService.deleteItemById(itemId);
     }
 }
