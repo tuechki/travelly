@@ -10,14 +10,14 @@ public class ActivityService {
     public ActivityService(ActivityRepository activityRepository) {
         this.activityRepository = activityRepository;
     }
-    public Activity updateActivityById(Long activityId, Activity activity) {
+    public Activity updateActivity(Long activityId, Activity activity) {
         activity.setId(activityId);
         Activity savedActivity = activityRepository.save(activity);
 
         return savedActivity;
     }
 
-    public void deleteActivityById(Long activityId) {
+    public void deleteActivity(Long activityId) {
         activityRepository.deleteById(activityId);
     }
 }
