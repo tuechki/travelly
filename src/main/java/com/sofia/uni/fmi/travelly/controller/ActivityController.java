@@ -20,6 +20,7 @@ public class ActivityController {
     @PutMapping("{activityId}")
     public ActivityDto updateActivity(@RequestParam Long activityId, @RequestBody ActivityDto activityDto) {
         Activity activity = activityMapper.toEntity(activityDto);
+        activity.setId(activityId);
         Activity updatedActivity = activityService.updateActivity(activityId, activity);
         ActivityDto updatedActivityDto = activityMapper.toDto(updatedActivity);
 
