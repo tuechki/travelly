@@ -17,15 +17,20 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id")
     private Trip trip;
+
     @Column
     private String name;
+
     @Column
     private String desc;
+
     @Column
     private Double amount;
+
     @Column
     private boolean isPacked;
 }
