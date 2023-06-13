@@ -18,7 +18,7 @@ public class ItineraryController {
     }
 
     @PutMapping("{itineraryId}")
-    public ItineraryDto updateItinerary(@RequestParam Long itineraryId, @RequestBody ItineraryDto itineraryDto) {
+    public ItineraryDto updateItinerary(@PathVariable Long itineraryId, @RequestBody ItineraryDto itineraryDto) {
         Itinerary itinerary = itineraryMapper.toEntity(itineraryDto);
         itinerary.setId(itineraryId);
         Itinerary updatedItinerary = itineraryService.updateItinerary(itinerary);
@@ -28,7 +28,7 @@ public class ItineraryController {
     }
 
     @DeleteMapping("{itineraryId}")
-    public void deleteItinerary(@RequestParam Long itineraryId) {
+    public void deleteItinerary(@PathVariable Long itineraryId) {
         itineraryService.deleteItinerary(itineraryId);
     }
 }
