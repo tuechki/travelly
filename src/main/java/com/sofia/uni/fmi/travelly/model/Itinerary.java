@@ -16,9 +16,11 @@ public class Itinerary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="trip_id")
     private Trip trip;
+
     @Column
     private int dayNum;
 }
