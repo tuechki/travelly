@@ -2,7 +2,9 @@ package com.sofia.uni.fmi.travelly.mapper;
 
 import com.sofia.uni.fmi.travelly.dto.ItemDto;
 import com.sofia.uni.fmi.travelly.model.Item;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ItemMapper {
     public ItemDto toDto(Item item) {
         return ItemDto.builder()
