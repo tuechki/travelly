@@ -1,11 +1,16 @@
 package com.sofia.uni.fmi.travelly.controller;
 
+import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.dto.UserDto;
 import com.sofia.uni.fmi.travelly.mapper.UserMapper;
+import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.model.User;
+import com.sofia.uni.fmi.travelly.service.TripService;
 import com.sofia.uni.fmi.travelly.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -25,7 +30,11 @@ public class UserController {
     @PostMapping("/")
     public UserDto addUser(@RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
-        return service.addUser(user);
+        Long userId = service.addUser(user);
+        user.setId(userId);
+        UserDto addedUserDto = userMapper.toDto(user);
+
+        return addedUserDto;
     }
 
     @PutMapping("/{id}")
