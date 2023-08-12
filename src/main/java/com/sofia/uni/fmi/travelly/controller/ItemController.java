@@ -2,6 +2,8 @@ package com.sofia.uni.fmi.travelly.controller;
 
 import com.sofia.uni.fmi.travelly.dto.ItemDto;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
+import com.sofia.uni.fmi.travelly.model.Item;
+import com.sofia.uni.fmi.travelly.service.ItemService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +21,7 @@ public class ItemController {
     public ItemDto updateItem(@PathVariable Long itemId, @RequestBody ItemDto itemDto) {
         Item item = itemMapper.toEntity(itemDto);
         item.setId(itemId);
-        Item updatedItem = itemService.updateItem(itemId, item);
+        Item updatedItem = itemService.updateItem(item);
         ItemDto updatedItemDto = itemMapper.toDto(updatedItem);
 
         return updatedItemDto;
