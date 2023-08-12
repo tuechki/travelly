@@ -13,7 +13,7 @@ public class ItemMapper {
                 .name(item.getName())
                 .desc(item.getDesc())
                 .amount(item.getAmount())
-                .isPacked(item.getIsPacked())
+                .isPacked(item.isPacked())
                 .build();
     }
 
@@ -24,7 +24,7 @@ public class ItemMapper {
                 .name(itemDto.getName())
                 .desc(itemDto.getDesc())
                 .amount(itemDto.getAmount())
-                .isPacked(itemDto.getIsPacked())
+                .isPacked(itemDto.isPacked())
                 .build();
     }
 }
