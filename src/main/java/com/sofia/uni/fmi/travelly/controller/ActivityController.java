@@ -1,6 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
-import com.sofia.uni.fmi.travelly.ActivityMapper.ActivityMapper;
+import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.dto.ActivityDto;
 import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.service.ActivityService;
@@ -21,7 +21,7 @@ public class ActivityController {
     public ActivityDto updateActivity(@RequestParam Long activityId, @RequestBody ActivityDto activityDto) {
         Activity activity = activityMapper.toEntity(activityDto);
         activity.setId(activityId);
-        Activity updatedActivity = activityService.updateActivity(activityId, activity);
+        Activity updatedActivity = activityService.updateActivity(activity);
         ActivityDto updatedActivityDto = activityMapper.toDto(updatedActivity);
 
         return updatedActivityDto;
