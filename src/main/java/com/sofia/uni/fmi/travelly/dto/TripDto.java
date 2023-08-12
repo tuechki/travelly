@@ -29,7 +29,7 @@ public class TripDto {
 
     private Double budget;
 
-    private Set<String> interests;
+    private String interests;
 
     private List<Item> items;
 
