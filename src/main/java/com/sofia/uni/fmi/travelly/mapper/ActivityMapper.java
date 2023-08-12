@@ -1,4 +1,4 @@
-package com.sofia.uni.fmi.travelly.ActivityMapper;
+package com.sofia.uni.fmi.travelly.mapper;
 
 import com.sofia.uni.fmi.travelly.dto.ActivityDto;
 import com.sofia.uni.fmi.travelly.model.Activity;
