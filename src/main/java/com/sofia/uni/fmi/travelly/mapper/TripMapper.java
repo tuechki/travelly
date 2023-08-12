@@ -2,7 +2,9 @@ package com.sofia.uni.fmi.travelly.mapper;
 
 import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.model.Trip;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TripMapper {
 
     public TripDto toDto(Trip entity) {

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("transportationOption")
 public class TransportationOptionController {
-    private TransportationOptionService transportationOptionService;
-    private TransportationOptionMapper transportationOptionMapper;
+    private final TransportationOptionService transportationOptionService;
+    private final TransportationOptionMapper transportationOptionMapper;
 
     public TransportationOptionController(
             TransportationOptionService transportationOptionService,
@@ -21,15 +21,13 @@ public class TransportationOptionController {
 
     @PutMapping("{transportationOptionId}")
     public TransportationOptionDto updateTransportationOption(
-            @PathVariable Long transportationOptionId, @RequestBody transportationOptionDto) {
+            @PathVariable Long transportationOptionId, @RequestBody TransportationOptionDto transportationOptionDto) {
         TransportationOption transportationOption = transportationOptionMapper.toEntity(transportationOptionDto);
         transportationOption.setId(transportationOptionId);
         TransportationOption updatedTransportationOption =
                 transportationOptionService.updateTransportationOption(transportationOption);
-        TransportationOptionDto updatedTransportationOptionDto =
-                transportationOptionMapper.toDto(updatedTransportationOption);
 
-        return updatedTransportationOptionDto;
+        return transportationOptionMapper.toDto(updatedTransportationOption);
     }
 
     @DeleteMapping("{transportationOptionId}")

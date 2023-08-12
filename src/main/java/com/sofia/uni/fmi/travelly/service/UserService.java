@@ -1,13 +1,16 @@
 package com.sofia.uni.fmi.travelly.service;
 
+import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.exception.ResourceNotFoundException;
 import com.sofia.uni.fmi.travelly.mapper.UserMapper;
+import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.model.User;
 import com.sofia.uni.fmi.travelly.dto.UserDto;
 import com.sofia.uni.fmi.travelly.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +18,9 @@ import java.util.Optional;
 public class UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
+
+    private TripService tripService;
+
     public User getUser(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (!userOptional.isPresent()) {

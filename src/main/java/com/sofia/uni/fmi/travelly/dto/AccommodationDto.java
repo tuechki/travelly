@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.dto;
 
+import com.sofia.uni.fmi.travelly.model.Itinerary;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

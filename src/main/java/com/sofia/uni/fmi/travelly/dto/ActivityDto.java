@@ -1,6 +1,7 @@
 package com.sofia.uni.fmi.travelly.dto;
 
 import com.sofia.uni.fmi.travelly.model.ActivityType;
+import com.sofia.uni.fmi.travelly.model.Itinerary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

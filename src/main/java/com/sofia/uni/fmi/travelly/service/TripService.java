@@ -1,7 +1,10 @@
 package com.sofia.uni.fmi.travelly.service;
 
+import com.sofia.uni.fmi.travelly.dto.ItemDto;
+import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.model.Item;
 import com.sofia.uni.fmi.travelly.model.Trip;
+import com.sofia.uni.fmi.travelly.model.User;
 import com.sofia.uni.fmi.travelly.repository.TripRepository;
 import org.springframework.stereotype.Service;
 

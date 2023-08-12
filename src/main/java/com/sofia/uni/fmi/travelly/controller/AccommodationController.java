@@ -30,6 +30,6 @@ public class AccommodationController {
 
     @DeleteMapping("{accommodationId}")
     public void deleteAccommodation(@PathVariable Long accommodationId) {
-        accommodationService.deleteAccomodation(accommodationId);
+        accommodationService.deleteAccommodation(accommodationId);
     }
 }
