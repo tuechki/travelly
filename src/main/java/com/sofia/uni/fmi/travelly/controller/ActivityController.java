@@ -18,7 +18,7 @@ public class ActivityController {
     }
 
     @PutMapping("{activityId}")
-    public ActivityDto updateActivity(@RequestParam Long activityId, @RequestBody ActivityDto activityDto) {
+    public ActivityDto updateActivity(@PathVariable Long activityId, @RequestBody ActivityDto activityDto) {
         Activity activity = activityMapper.toEntity(activityDto);
         activity.setId(activityId);
         Activity updatedActivity = activityService.updateActivity(activity);
@@ -28,7 +28,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("{activityId}")
-    public void deleteActivity(@RequestParam Long activityId) {
+    public void deleteActivity(@PathVariable Long activityId) {
         activityService.deleteActivity(activityId);
     }
 }
