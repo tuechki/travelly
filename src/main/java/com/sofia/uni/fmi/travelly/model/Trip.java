@@ -16,30 +16,30 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "trips")
 public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "destination")
     private String destination;
 
-    @Column
+    @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @Column
+    @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @Column
+    @Column(name = "budget")
     private Double budget;
 
-    @Column
+    @Column(name = "interests")
     private String interests;
 
     @OneToMany
