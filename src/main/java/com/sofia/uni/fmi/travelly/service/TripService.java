@@ -1,31 +1,35 @@
 package com.sofia.uni.fmi.travelly.service;
 
-import com.sofia.uni.fmi.travelly.dto.ItemDto;
 import com.sofia.uni.fmi.travelly.dto.TripDto;
-import com.sofia.uni.fmi.travelly.model.Item;
+import com.sofia.uni.fmi.travelly.exception.ResourceNotFoundException;
+import com.sofia.uni.fmi.travelly.mapper.TripMapper;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.model.User;
 import com.sofia.uni.fmi.travelly.repository.TripRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TripService {
 
-    private TripRepository tripRepository;
+    private final TripRepository tripRepository;
 
-    public TripService(TripRepository tripRepository) {
+    private final TripMapper tripMapper;
+
+    private final ItemService itemService;
+
+    public TripService(TripRepository tripRepository, TripMapper tripMapper, ItemService itemService) {
         this.tripRepository = tripRepository;
+        this.tripMapper = tripMapper;
+        this.itemService = itemService;
     }
 
     public Trip getTripById(Long tripId) {
-
         Optional<Trip> tripOptional = tripRepository.findById(tripId);
 
         if (!tripOptional.isPresent()) {
-            // throw exception
+            throw new ResourceNotFoundException("No trip with id=" + tripId + "is present.");
         }
 
         return tripOptional.get();
@@ -37,18 +41,6 @@ public class TripService {
 
     public void deleteTripById(Long tripId) {
         tripRepository.deleteById(tripId);
-    }
-
-    public List<Item> getItemsByTripId(Long tripId) {
-        return tripRepository.findById(tripId).get().getItems();
-    }
-
-    public void addItem(ItemDto ItemDto) {
-        tripService.addDealership(mapper.toEntity(dealershipDto));
-    }
-
-    public void deleteAllItems(String tripId) {
-        tripService.deleteAllItems(tripId);
     }
 
     public Trip constructTripEntityBy(TripDto tripDto, User user) {
