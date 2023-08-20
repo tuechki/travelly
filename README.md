@@ -91,3 +91,6 @@ Contributions are welcome! If you find any issues or have improvements to sugges
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/license/mit/).
+
+
+**Free Software, Hell Yeah!**
