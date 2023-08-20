@@ -83,7 +83,6 @@ java -jar target/travelly-*.jar
 
 
 ###### The application should now be accessible at http://localhost:8080.
-<br>
 
 
 
