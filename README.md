@@ -81,9 +81,27 @@ Once the project is built, you can run the application:
 java -jar target/travelly-*.jar
 ```
 
-
 ###### The application should now be accessible at http://localhost:8080.
 
+
+### Open Swagger UI
+```sh
+http://localhost:8080/swagger-ui-travelly.html
+```
+
+### Exploring the API
+On the Swagger UI page, you'll see a list of available APIs and their endpoints.
+Click on an endpoint to view detailed information about the request and response, including request parameters, response schemas, and example requests.
+
+
+### Making API Requests
+To test an API endpoint, click the "Try it out" button.
+Fill in any required parameters, headers, and request body (if applicable).
+Click the "Execute" button to see the response.
+
+
+### Authentication (If Applicable)
+If the APIs require authentication, provide the necessary authentication details using the Swagger UI interface before making requests.
 
 
 ## Contributing
@@ -91,6 +109,8 @@ Contributions are welcome! If you find any issues or have improvements to sugges
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/license/mit/).
+
+
 
 
 **Free Software, Hell Yeah!**
