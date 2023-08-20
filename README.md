@@ -90,4 +90,4 @@ java -jar target/travelly-*.jar
 Contributions are welcome! If you find any issues or have improvements to suggest, please open an issue or create a pull request.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://opensource.org/license/mit/).
