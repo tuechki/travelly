@@ -1,4 +1,5 @@
-<span style="color: red;"> This text is red. </span>
+<font color="red">This text is red.</font>
+
 # Travelly Project
 ## _The Best Travel App, Ever..._
 
