@@ -1,6 +1,28 @@
 # Travelly Project
+## _The Best Travel App, Ever..._
 
 Welcome to the Travelly project! This repository contains a Java Spring Maven project for a travel management application.
+
+## Features
+
+##### Trip Planning Interface:
+- Enable users to input trip details, such as destination, travel dates, and preferences
+(e.g., budget, interests)
+- Offer an interactive map that allows users to create and visualize itineraries by
+adding activities, accommodations, and transportation options
+- Provide a list of recommended activities, accommodations, and transportation
+options based on user preferences, budget, and travel dates
+##### Itinerary Builder and Timeline View:
+-  Allow users to create and edit itineraries by adding, removing, or rearranging
+activities, accommodations, and transportation options
+- Offer a timeline view to visualize the trip itinerary and ensure there are no
+scheduling conflicts
+##### Packing List Generator:
+- Provide a customizable packing list generator that takes into account the user's
+destination, travel dates, and planned activities
+- Offer the ability to add, remove, or edit items on the packing list
+- Enable users to mark items as packed and track their packing progress
+
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -18,7 +40,7 @@ Before you begin, ensure you have the following installed:
 
 - [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html)
 - [Maven](https://maven.apache.org/download.cgi)
-- [MySQL Server](https://dev.mysql.com/downloads/mysql/)
+- [PostgreSQL Server](https://www.postgresql.org/download/)
 - [Git](https://git-scm.com/downloads)
 
 ## Getting Started
@@ -30,28 +52,39 @@ Follow these steps to set up and run the project locally:
 ```bash
 git clone https://github.com/tuechki/travelly.git
 cd travelly
+```
 
 ### Configure the Database
 
-1. Create a MySQL database named travelly_db.
-2. Update the database configuration in src/main/resources/application.properties:
+Create a PostgreSQL database named travelly_db. 
+Update the database configuration in src/main/resources/application.properties:
 
-spring.datasource.url=jdbc:mysql://localhost:3306/travelly_db
+```sh
+spring.datasource.url=jdbc:postgresql://localhost:5432/travelly_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
+```
+
 
 
 ### Build the Project
 Navigate to the project root directory and build the application using Maven:
+
+```sh
 mvn clean package
+```
 
 
 ### Run the Application
 Once the project is built, you can run the application:
+```sh
 java -jar target/travelly-*.jar
+```
 
 
-The application should now be accessible at http://localhost:8080.
+###### The application should now be accessible at http://localhost:8080.
+<br>
+
 
 
 ## Contributing
