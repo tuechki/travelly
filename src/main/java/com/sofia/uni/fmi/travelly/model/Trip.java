@@ -42,10 +42,13 @@ public class Trip {
     @Column(name = "interests")
     private String interests;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Item> items;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Itinerary> itineraries;
+
+    @ManyToMany(mappedBy = "trips", fetch = FetchType.LAZY)
     private Set<User> users;
 
 

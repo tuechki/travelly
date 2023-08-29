@@ -14,7 +14,7 @@ public class ItemDto {
     private Long id;
     private Trip trip;
     private String name;
-    private String desc;
+    private String description;
     private Double amount;
     private boolean isPacked;
 }

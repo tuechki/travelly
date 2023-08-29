@@ -21,7 +21,7 @@ public class UserService {
 
     private TripService tripService;
 
-    public User getUser(Long userId) {
+    public User getUserById(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (!userOptional.isPresent()) {
             throw new ResourceNotFoundException("No user present");
@@ -36,17 +36,15 @@ public class UserService {
         return savedUser.getId();
     }
 
-    public User updateUser(User user) {
-        User savedUser = userRepository.save(user);
-
-        return savedUser;
+    public Long updateUser(User user) {
+        return userRepository.save(user).getId();
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
 
-    public List<Trip> getTrips(Long userId) {
+    public List<Trip> getTripsByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if(!userOptional.isPresent()) {
             throw new ResourceNotFoundException("No user present");
@@ -69,7 +67,7 @@ public class UserService {
 
     public User constructUserEntityBy(UserDto userDto, Trip trip) {
         User user = userMapper.toEntity(userDto);
-        user.addTrip(trip);
+        user.getTrips().add(trip);
 
         return user;
     }

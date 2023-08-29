@@ -15,22 +15,22 @@ import lombok.NoArgsConstructor;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
-    private String desc;
+    @Column(name = "description")
+    private String description;
 
-    @Column
+    @Column(name = "amount")
     private Double amount;
 
-    @Column
+    @Column(name = "is_packed")
     private boolean isPacked;
 }
