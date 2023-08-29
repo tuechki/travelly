@@ -17,12 +17,9 @@ public class TripService {
 
     private final TripMapper tripMapper;
 
-    private final ItemService itemService;
-
-    public TripService(TripRepository tripRepository, TripMapper tripMapper, ItemService itemService) {
+    public TripService(TripRepository tripRepository, TripMapper tripMapper) {
         this.tripRepository = tripRepository;
         this.tripMapper = tripMapper;
-        this.itemService = itemService;
     }
 
     public Trip getTripById(Long tripId) {
@@ -35,7 +32,7 @@ public class TripService {
         return tripOptional.get();
     }
 
-    public Long updateTripById(Trip trip) {
+    public Long updateTrip(Trip trip) {
         return tripRepository.save(trip).getId();
     }
 
