@@ -13,22 +13,23 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="transportation_options")
 public class TransportationOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name="itinerary_id")
     private Itinerary itinerary;
 
-    @Column
+    @Column(name = "type")
     private TransportationOptionType type;
 
-    @Column
+    @Column(name = "duration")
     private LocalDateTime duration;
 
-    @Column
+    @Column(name = "price")
     private Double price;
 }
