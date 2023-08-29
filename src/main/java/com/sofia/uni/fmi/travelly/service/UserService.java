@@ -36,10 +36,8 @@ public class UserService {
         return savedUser.getId();
     }
 
-    public User updateUser(User user) {
-        User savedUser = userRepository.save(user);
-
-        return savedUser;
+    public Long updateUser(User user) {
+        return userRepository.save(user).getId();
     }
 
     public void deleteUser(Long userId) {
@@ -69,7 +67,7 @@ public class UserService {
 
     public User constructUserEntityBy(UserDto userDto, Trip trip) {
         User user = userMapper.toEntity(userDto);
-        user.addTrip(trip);
+        user.getTrips().add(trip);
 
         return user;
     }
