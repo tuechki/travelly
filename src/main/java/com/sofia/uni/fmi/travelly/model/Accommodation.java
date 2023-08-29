@@ -11,25 +11,26 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="accommodations")
 public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="itinerary_id")
     private Itinerary itinerary;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "address")
     private String address;
 
-    @Column
+    @Column(name = "city")
     private String city;
 
-    @Column
+    @Column(name = "price")
     private Double pricePerNight;
 }
