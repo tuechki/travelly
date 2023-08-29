@@ -11,7 +11,7 @@ public class ItemMapper {
                 .id(item.getId())
                 .trip(item.getTrip())
                 .name(item.getName())
-                .desc(item.getDesc())
+                .description(item.getDescription())
                 .amount(item.getAmount())
                 .isPacked(item.isPacked())
                 .build();
@@ -22,7 +22,7 @@ public class ItemMapper {
                 .id(itemDto.getId())
                 .trip(itemDto.getTrip())
                 .name(itemDto.getName())
-                .desc(itemDto.getDesc())
+                .description(itemDto.getDescription())
                 .amount(itemDto.getAmount())
                 .isPacked(itemDto.isPacked())
                 .build();
