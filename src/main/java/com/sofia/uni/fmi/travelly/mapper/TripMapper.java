@@ -17,8 +17,8 @@ public class TripMapper {
                 .endDate(entity.getEndDate())
                 .budget(entity.getBudget())
                 .interests(entity.getInterests())
-//            .items(entity.getItems())
-//            .users(entity.getUsers())
+                .items(entity.getItems())
+                .users(entity.getUsers())
                 .build();
     }
 
@@ -41,8 +41,8 @@ public class TripMapper {
                 .endDate(dto.getEndDate())
                 .budget(dto.getBudget())
                 .interests(dto.getInterests())
-//            .items(dto.getItems())
-//            .users(dto.getUsers())
+                .items(dto.getItems())
+                .users(dto.getUsers())
                 .build();
     }
 

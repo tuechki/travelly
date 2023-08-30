@@ -65,9 +65,9 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-//    @PostMapping("{id}/trips")
-//    public Long addTrip(@PathVariable Long id, @RequestBody TripDto tripDto) {
-//        User user = service.getUser(id);
-//        return service.addTrip(id, tripDto);
-//    }
+    @PostMapping("{id}/trips")
+    public Long addTrip(@PathVariable Long id, @RequestBody TripDto tripDto) {
+        User user = service.getUser(id);
+        return service.addTrip(id, tripDto);
+    }
 }
