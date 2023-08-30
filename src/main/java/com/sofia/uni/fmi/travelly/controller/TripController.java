@@ -19,8 +19,8 @@ public class TripController {
 
     private final TripService tripService;
     private final TripMapper tripMapper;
-    private final ItemService itemService;
 
+    private final ItemService itemService;
     private final ItemMapper itemMapper;
 
     public TripController(TripService tripService,TripMapper tripMapper, ItemService itemService, ItemMapper itemMapper) {
@@ -40,7 +40,7 @@ public class TripController {
     public Long updateTripById(@PathVariable Long tripId, @RequestBody TripDto tripDto) {
         Trip trip = tripMapper.toEntity(tripDto);
         trip.setId(tripId);
-        return tripService.updateTripById(trip);
+        return tripService.updateTrip(trip);
     }
 
     @DeleteMapping("{tripId}")
