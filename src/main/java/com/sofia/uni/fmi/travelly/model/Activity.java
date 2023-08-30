@@ -17,25 +17,25 @@ import java.time.LocalDateTime;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="itinerary_id")
     private Itinerary itinerary;
 
-    @Column
+    @Column(name = "activity_type")
     private ActivityType activityType;
 
-    @Column
+    @Column(name = "activity_location")
     private String activityLocation;
 
-    @Column
+    @Column(name = "start_time")
     private LocalDateTime startTime;
 
-    @Column
+    @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    @Column
+    @Column(name = "description")
     private String description;
 }

@@ -7,7 +7,6 @@ import com.sofia.uni.fmi.travelly.mapper.TripMapper;
 import com.sofia.uni.fmi.travelly.mapper.UserMapper;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.model.User;
-import com.sofia.uni.fmi.travelly.service.TripService;
 import com.sofia.uni.fmi.travelly.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,8 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping("/{id}")
-    public UserDto getUser(@PathVariable Long id) {
-        User user = service.getUser(id);
+    public UserDto getUserById(@PathVariable Long userId) {
+        User user = service.getUserById(userId);
         return userMapper.toDto(user);
     }
 
@@ -42,18 +41,15 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public Long updateUserById(@PathVariable Long userId, @RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
-        user.setId(id);
-        User updatedUser =  service.updateUser(user);
-        UserDto updatedUserDto = userMapper.toDto(updatedUser);
-
-        return updatedUserDto;
+        user.setId(userId);
+        return service.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        service.deleteUser(id);
+    public void deleteUserById(@PathVariable Long userId) {
+        service.deleteUserById(userId);
     }
 
     @GetMapping("/{id}/trips")
@@ -63,6 +59,16 @@ public class UserController {
                 .stream()
                 .map(trip -> tripMapper.toListDto(trip))
                 .collect(Collectors.toList());
+    }
+  
+    public List<Trip> getTripsByUserId(@PathVariable Long userId) {
+        return service.getTripsByUserId(userId);
+    }
+
+    @PostMapping("{id}/trips")
+    public Long addTrip(@PathVariable Long userId, @RequestBody TripDto tripDto) {
+        User user = service.getUserById(userId);
+        return service.addTrip(userId, tripDto);
     }
 
     @PostMapping("{id}/trips")
