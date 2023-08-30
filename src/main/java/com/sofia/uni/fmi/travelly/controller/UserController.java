@@ -55,7 +55,7 @@ public class UserController {
     @GetMapping("/{id}/trips")
     public List<TripListDto> getTrips(@PathVariable Long id) {
 
-        return service.getTrips(id)
+        return service.getTripsByUserId(id)
                 .stream()
                 .map(trip -> tripMapper.toListDto(trip))
                 .collect(Collectors.toList());
@@ -69,11 +69,5 @@ public class UserController {
     public Long addTrip(@PathVariable Long userId, @RequestBody TripDto tripDto) {
         User user = service.getUserById(userId);
         return service.addTrip(userId, tripDto);
-    }
-
-    @PostMapping("{id}/trips")
-    public Long addTrip(@PathVariable Long id, @RequestBody TripDto tripDto) {
-        User user = service.getUser(id);
-        return service.addTrip(id, tripDto);
     }
 }
