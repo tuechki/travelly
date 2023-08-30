@@ -24,7 +24,7 @@ public class UserController {
     private TripMapper tripMapper;
     private UserMapper userMapper;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable Long userId) {
         User user = service.getUserById(userId);
         return userMapper.toDto(user);
