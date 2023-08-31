@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.service;
 
+import com.sofia.uni.fmi.travelly.dto.TripCreateDto;
 import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.exception.ResourceNotFoundException;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
@@ -8,6 +9,7 @@ import com.sofia.uni.fmi.travelly.model.User;
 import com.sofia.uni.fmi.travelly.repository.TripRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 @Service
@@ -40,8 +42,9 @@ public class TripService {
         tripRepository.deleteById(tripId);
     }
 
-    public Trip constructTripEntityBy(TripDto tripDto, User user) {
-        Trip trip = tripMapper.toEntity(tripDto);
+    public Trip constructTripEntityBy(TripCreateDto tripCreateDto, User user) {
+        Trip trip = tripMapper.toEntity(tripCreateDto);
+        trip.setUsers(new HashSet<>());
         trip.getUsers().add(user);
 
         return trip;

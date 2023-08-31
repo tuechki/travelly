@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class UserDto {
-    private Long id;
-    private String email;
+public class UserLoginDto {
     private String username;
     private String password;
 }

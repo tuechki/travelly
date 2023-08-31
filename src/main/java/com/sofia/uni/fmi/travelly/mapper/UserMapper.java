@@ -12,7 +12,6 @@ public class UserMapper {
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .trips(user.getTrips())
                 .build();
     }
 
@@ -22,7 +21,6 @@ public class UserMapper {
                 .email(userDto.getEmail())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
-                .trips(userDto.getTrips())
                 .build();
     }
 }
