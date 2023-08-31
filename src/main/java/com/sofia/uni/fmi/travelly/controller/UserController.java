@@ -3,17 +3,23 @@ package com.sofia.uni.fmi.travelly.controller;
 import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.dto.TripListDto;
 import com.sofia.uni.fmi.travelly.dto.UserDto;
+import com.sofia.uni.fmi.travelly.dto.UserLoginDto;
+import com.sofia.uni.fmi.travelly.dto.UserRegistrationDto;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
 import com.sofia.uni.fmi.travelly.mapper.UserMapper;
+import com.sofia.uni.fmi.travelly.mapper.UserRegistrationMapper;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.model.User;
 import com.sofia.uni.fmi.travelly.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,6 +29,7 @@ public class UserController {
     private UserService service;
     private TripMapper tripMapper;
     private UserMapper userMapper;
+    private UserRegistrationMapper userRegistrationMapper;
 
     @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable Long userId) {
@@ -30,14 +37,29 @@ public class UserController {
         return userMapper.toDto(user);
     }
 
-    @PostMapping("/")
-    public UserDto addUser(@RequestBody UserDto userDto) {
-        User user = userMapper.toEntity(userDto);
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, Long>> login(@RequestBody UserLoginDto userLoginDto) {
+        Long userId = service.authenticateUser(userLoginDto.getUsername(), userLoginDto.getPassword());
+
+        if (userId != null) {
+            Map<String, Long> response = new HashMap<>();
+            response.put("userId", userId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> addUser(@RequestBody UserRegistrationDto userRegistrationDto) {
+        User user = userRegistrationMapper.toEntity(userRegistrationDto);
         Long userId = service.addUser(user);
         user.setId(userId);
         UserDto addedUserDto = userMapper.toDto(user);
 
-        return addedUserDto;
+        return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(addedUserDto);
     }
 
     @PutMapping("/{id}")
