@@ -75,7 +75,6 @@ public class UserController {
 
     @GetMapping("/{userId}/trips")
     public List<TripListDto> getTrips(@PathVariable Long userId) {
-
         return service.getTripsByUserId(userId)
                 .stream()
                 .map(trip -> tripMapper.toListDto(trip))
