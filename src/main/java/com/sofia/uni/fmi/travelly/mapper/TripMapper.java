@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.mapper;
 
+import com.sofia.uni.fmi.travelly.dto.TripCreateDto;
 import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.dto.TripListDto;
 import com.sofia.uni.fmi.travelly.model.Trip;
@@ -45,6 +46,19 @@ public class TripMapper {
                 .users(dto.getUsers())
                 .build();
     }
+
+
+    public Trip toEntity(TripCreateDto dto) {
+        return Trip.builder()
+            .destination(dto.getDestination())
+            .name(dto.getName())
+            .startDate(dto.getStartDate())
+            .endDate(dto.getEndDate())
+            .budget(dto.getBudget())
+            .interests(dto.getInterests())
+            .build();
+    }
+
 
 
 }
