@@ -1,6 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
-import com.sofia.uni.fmi.travelly.dto.TripDto;
+import com.sofia.uni.fmi.travelly.dto.TripCreateDto;
 import com.sofia.uni.fmi.travelly.dto.TripListDto;
 import com.sofia.uni.fmi.travelly.dto.UserDto;
 import com.sofia.uni.fmi.travelly.dto.UserLoginDto;
@@ -62,22 +62,21 @@ public class UserController {
             .body(addedUserDto);
     }
 
-    @PutMapping("/{id}")
-    public Long updateUserById(@PathVariable Long userId, @RequestBody UserDto userDto) {
+    @PatchMapping
+    public Long updateUserById(@RequestBody UserDto userDto) {
         User user = userMapper.toEntity(userDto);
-        user.setId(userId);
         return service.updateUser(user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{userId}")
     public void deleteUserById(@PathVariable Long userId) {
         service.deleteUserById(userId);
     }
 
-    @GetMapping("/{id}/trips")
-    public List<TripListDto> getTrips(@PathVariable Long id) {
+    @GetMapping("/{userId}/trips")
+    public List<TripListDto> getTrips(@PathVariable Long userId) {
 
-        return service.getTripsByUserId(id)
+        return service.getTripsByUserId(userId)
                 .stream()
                 .map(trip -> tripMapper.toListDto(trip))
                 .collect(Collectors.toList());
@@ -87,9 +86,8 @@ public class UserController {
         return service.getTripsByUserId(userId);
     }
 
-    @PostMapping("{id}/trips")
-    public Long addTrip(@PathVariable Long userId, @RequestBody TripDto tripDto) {
-        User user = service.getUserById(userId);
-        return service.addTrip(userId, tripDto);
+    @PostMapping("{userId}/trips")
+    public Long addTrip(@PathVariable Long userId, @RequestBody TripCreateDto tripCreateDto) {
+        return service.addTrip(userId, tripCreateDto);
     }
 }
