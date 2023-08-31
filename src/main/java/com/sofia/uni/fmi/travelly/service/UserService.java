@@ -30,6 +30,14 @@ public class UserService {
         return userOptional.get();
     }
 
+    public Long authenticateUser(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user.getPassword().equals(password)) {
+            return user.getId();
+        }
+
+        return null;
+    }
     public Long addUser(User user) {
         User savedUser = userRepository.save(user);
 
@@ -49,7 +57,7 @@ public class UserService {
         if(!userOptional.isPresent()) {
             throw new ResourceNotFoundException("No user present");
         }
-        
+
         return userOptional.get().getTrips();
     }
 
