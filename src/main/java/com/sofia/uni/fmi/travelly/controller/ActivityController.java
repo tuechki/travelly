@@ -7,7 +7,7 @@ import com.sofia.uni.fmi.travelly.service.ActivityService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("trips")
+@RequestMapping("activities")
 public class ActivityController {
     private ActivityService activityService;
     private ActivityMapper activityMapper;

@@ -19,7 +19,6 @@ public class TripMapper {
                 .budget(entity.getBudget())
                 .interests(entity.getInterests())
                 .items(entity.getItems())
-                .users(entity.getUsers())
                 .build();
     }
 
@@ -43,7 +42,7 @@ public class TripMapper {
                 .budget(dto.getBudget())
                 .interests(dto.getInterests())
                 .items(dto.getItems())
-                .users(dto.getUsers())
+//                .users(dto.getUsers())
                 .build();
     }
 
