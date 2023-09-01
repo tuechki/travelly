@@ -33,5 +33,4 @@ public class TripDto {
 
     private List<Item> items;
 
-//    private Set<User> users;
 }
