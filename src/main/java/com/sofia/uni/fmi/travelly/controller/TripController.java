@@ -36,10 +36,9 @@ public class TripController {
         return tripMapper.toDto(trip);
     }
 
-    @PutMapping("{tripId}")
-    public Long updateTripById(@PathVariable Long tripId, @RequestBody TripDto tripDto) {
+    @PatchMapping
+    public Long updateTripById(@RequestBody TripDto tripDto) {
         Trip trip = tripMapper.toEntity(tripDto);
-        trip.setId(tripId);
         return tripService.updateTrip(trip);
     }
 
