@@ -1,6 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
-import com.sofia.uni.fmi.travelly.dto.ItemDto;
+import com.sofia.uni.fmi.travelly.dto.ItemCreateDto;
 import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
@@ -49,16 +49,16 @@ public class TripController {
 
 
     @GetMapping("{tripId}/items")
-    public List<ItemDto> getItemsByTripId(@PathVariable Long tripId) {
+    public List<ItemCreateDto> getItemsByTripId(@PathVariable Long tripId) {
         return itemService.getItemsByTripId(tripId)
                 .stream()
-                .map(item -> itemMapper.toDto(item))
+                .map(item -> itemMapper.toItemCreateDto(item))
                 .toList();
     }
 
     @PostMapping("{tripId}/items")
-    public void addItem(@PathVariable Long tripId, @RequestBody ItemDto itemDto) {
-        itemService.addItem(itemDto, tripId);
+    public void addItem(@PathVariable Long tripId, @RequestBody ItemCreateDto itemCreateDto) {
+        itemService.addItem(itemCreateDto, tripId);
     }
 
     @DeleteMapping("{tripId}/items")
