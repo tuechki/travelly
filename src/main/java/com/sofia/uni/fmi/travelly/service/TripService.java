@@ -36,12 +36,22 @@ public class TripService {
     public Long updateTrip(Trip trip) {
         Trip existingTrip = tripRepository.findById(trip.getId()).get();
         trip.setItineraries(existingTrip.getItineraries());
-        trip.setUsers(existingTrip.getUsers());
+//        trip.setUsers(existingTrip.getUsers());
         return tripRepository.save(trip).getId();
     }
 
     public void deleteTripById(Long tripId) {
-        tripRepository.deleteById(tripId);
+        Optional<Trip> tripOptional = tripRepository.findById(tripId);
+        if (tripOptional.isPresent()) {
+            Trip trip = tripOptional.get();
+
+            for (User user : trip.getUsers()) {
+                user.getTrips().remove(trip);
+            }
+            trip.getUsers().clear();
+
+            tripRepository.delete(trip);
+        }
     }
 
     public Trip constructTripEntityBy(TripCreateDto tripCreateDto, User user) {
