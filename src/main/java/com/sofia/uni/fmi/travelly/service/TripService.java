@@ -1,7 +1,6 @@
 package com.sofia.uni.fmi.travelly.service;
 
 import com.sofia.uni.fmi.travelly.dto.TripCreateDto;
-import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.exception.ResourceNotFoundException;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
 import com.sofia.uni.fmi.travelly.model.Trip;
@@ -35,6 +34,9 @@ public class TripService {
     }
 
     public Long updateTrip(Trip trip) {
+        Trip existingTrip = tripRepository.findById(trip.getId()).get();
+        trip.setItineraries(existingTrip.getItineraries());
+        trip.setUsers(existingTrip.getUsers());
         return tripRepository.save(trip).getId();
     }
 
