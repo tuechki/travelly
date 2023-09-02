@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccommodationDto {
     private Long id;
-    private Itinerary itinerary;
     private String name;
     private String address;
     private String city;
