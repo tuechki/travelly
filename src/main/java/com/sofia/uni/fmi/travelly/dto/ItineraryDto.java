@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItineraryDto {
     private Long id;
-    private Trip trip;
     private int dayNum;
 }

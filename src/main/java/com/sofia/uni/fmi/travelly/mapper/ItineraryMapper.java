@@ -10,7 +10,6 @@ public class ItineraryMapper {
     public Itinerary toEntity(ItineraryDto itineraryDto) {
         return Itinerary.builder()
                 .id(itineraryDto.getId())
-                .trip(itineraryDto.getTrip())
                 .dayNum(itineraryDto.getDayNum())
                 .build();
     }
@@ -18,7 +17,6 @@ public class ItineraryMapper {
     public ItineraryDto toDto(Itinerary itinerary) {
         return ItineraryDto.builder()
                 .id(itinerary.getId())
-                .trip(itinerary.getTrip())
                 .dayNum(itinerary.getDayNum())
                 .build();
     }

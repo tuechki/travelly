@@ -1,6 +1,7 @@
 package com.sofia.uni.fmi.travelly.service;
 
 import com.sofia.uni.fmi.travelly.dto.ItineraryCreateUpdateDto;
+import com.sofia.uni.fmi.travelly.dto.ItineraryDto;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.model.Trip;
@@ -54,6 +55,9 @@ public class ItineraryService {
         return itineraryRepository.save(itinerary);
     }
 
+    public Itinerary getItineraryById(Long itineraryId) {
+        return itineraryRepository.findById(itineraryId).get();
+    }
     public void deleteItinerary(Long itineraryId) {
         itineraryRepository.deleteById(itineraryId);
     }
