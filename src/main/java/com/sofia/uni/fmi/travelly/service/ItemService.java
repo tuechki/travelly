@@ -7,6 +7,7 @@ import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.repository.ItemRepository;
 import com.sofia.uni.fmi.travelly.repository.TripRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,9 +37,10 @@ public class ItemService {
         return savedItem.getId();
     }
 
+    @Transactional
     public void deleteAllItems(Long tripId) {
         Trip trip = tripRepository.findById(tripId).get();
-        itemRepository.deleteAllByTrip(trip);
+        itemRepository.deleteByTrip(trip);
     }
 
     public Item updateItem(Item item) {
