@@ -106,7 +106,7 @@ public class ActivityService {
             List<Activity> currentRecommendedActivities =
                     activityRepository.findActivitiesByCriteria(
                             trip.getDestination(), maxStartTime, minEndTime, interest,
-                            activityType.ordinal(), activityLocation, description);
+                            activityType, activityLocation, description);
             currentRecommendedActivities
                     .stream()
                     .forEach(activity -> recommendedActivities.add(activity));
