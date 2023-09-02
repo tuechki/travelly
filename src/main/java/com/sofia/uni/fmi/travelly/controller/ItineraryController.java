@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
+import com.sofia.uni.fmi.travelly.dto.ItineraryCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ItineraryDto;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
@@ -17,14 +18,15 @@ public class ItineraryController {
         this.itineraryMapper = itineraryMapper;
     }
 
-    @PutMapping("{itineraryId}")
-    public ItineraryDto updateItinerary(@PathVariable Long itineraryId, @RequestBody ItineraryDto itineraryDto) {
-        Itinerary itinerary = itineraryMapper.toEntity(itineraryDto);
+    @PatchMapping("{itineraryId}")
+    public Long updateItinerary(@PathVariable Long itineraryId,
+                                @RequestBody ItineraryCreateUpdateDto itineraryCreateUpdateDto) {
+        Itinerary itinerary = itineraryMapper.toEntity(itineraryCreateUpdateDto);
         itinerary.setId(itineraryId);
         Itinerary updatedItinerary = itineraryService.updateItinerary(itinerary);
         ItineraryDto updatedItineraryDto = itineraryMapper.toDto(updatedItinerary);
 
-        return updatedItineraryDto;
+        return updatedItineraryDto.getId();
     }
 
     @DeleteMapping("{itineraryId}")
