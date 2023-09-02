@@ -151,17 +151,22 @@ public class TripController {
         return recommendedAccommodationsDto;
     }
 
-    @GetMapping("{tripId}/transportationOptions/recommend")
-    public List<TransportationOptionDto> recommendTransportationOptions(@PathVariable Long tripId) {
-        List<TransportationOption> recommendedTransportationOptions =
-                transportationOptionService.recommendTransportationOptions(tripId);
+        @GetMapping("{tripId}/transportationOptions/recommend")
+        public List<TransportationOptionDto> recommendTransportationOptions (
+                @PathVariable Long tripId,
+                @RequestParam TransportationOptionType transportationOptionType,
+                @RequestParam(value = "priceFrom", required = false, defaultValue = "-1.0") Double priceFrom,
+                @RequestParam(value = "priceTo", required = false, defaultValue = "-1.0") Double priceTo){
+            List<TransportationOption> recommendedTransportationOptions =
+                    transportationOptionService
+                            .recommendTransportationOptions(tripId, transportationOptionType, priceFrom, priceTo);
 
-        List<TransportationOptionDto> recommendedTransportationOptionDto =
-                recommendedTransportationOptions
-                        .stream()
-                        .map(transportationOption -> transportationOptionMapper.toDto(transportationOption))
-                        .collect(Collectors.toList());
+            List<TransportationOptionDto> recommendedTransportationOptionDto =
+                    recommendedTransportationOptions
+                            .stream()
+                            .map(transportationOption -> transportationOptionMapper.toDto(transportationOption))
+                            .collect(Collectors.toList());
 
-        return recommendedTransportationOptionDto;
+            return recommendedTransportationOptionDto;
+        }
     }
-}
