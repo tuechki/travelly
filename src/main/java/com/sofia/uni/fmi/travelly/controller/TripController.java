@@ -75,7 +75,7 @@ public class TripController {
     }
 
     @GetMapping("{tripId}/itineraries")
-    public List<ItineraryCreateUpdateDto> getItinerariesByTripId(@PathVariable Long tripId) {
+    public List<ItineraryDto> getItinerariesByTripId(@PathVariable Long tripId) {
         return itineraryService.getItinerariesByTripId(tripId)
                 .stream()
                 .map(itinerary -> itineraryMapper.toCreateUpdateDto(itinerary))
