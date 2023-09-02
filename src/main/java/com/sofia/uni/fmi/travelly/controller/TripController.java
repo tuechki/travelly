@@ -138,18 +138,20 @@ public class TripController {
             @RequestParam(value = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "address", required = false, defaultValue = "") String address,
             @RequestParam(value = "city", required = false, defaultValue = "") String city,
-            @RequestParam(value = "pricePerNight", required = false, defaultValue = "-1.0") Double pricePerNight) {
-        List<Accommodation> recommendedAccommodations = accommodationService.recommendAccommodations(
-                tripId, name, address, city, pricePerNight);
+            @RequestParam(value = "pricePerNightFrom", required = false, defaultValue = "-1") Double pricePerNightFrom,
+            @RequestParam(value = "pricePerNightTo", required = false, defaultValue = "-1") Double pricePerNightTo)
+        {
+            List<Accommodation> recommendedAccommodations = accommodationService.recommendAccommodations(
+                    tripId, name, address, city, pricePerNightFrom, pricePerNightTo);
 
-        List<AccommodationDto> recommendedAccommodationsDto =
-                recommendedAccommodations
-                        .stream()
-                        .map(accommodation -> accommodationMapper.toDto(accommodation))
-                        .collect(Collectors.toList());
+            List<AccommodationDto> recommendedAccommodationsDto =
+                    recommendedAccommodations
+                            .stream()
+                            .map(accommodation -> accommodationMapper.toDto(accommodation))
+                            .collect(Collectors.toList());
 
-        return recommendedAccommodationsDto;
-    }
+            return recommendedAccommodationsDto;
+        }
 
         @GetMapping("{tripId}/transportationOptions/recommend")
         public List<TransportationOptionDto> recommendTransportationOptions (
