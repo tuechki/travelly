@@ -16,12 +16,18 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     void deleteByItinerary(Itinerary itinerary);
 
     @Query("SELECT a FROM Activity a WHERE " +
-            "(a.activityLocation = :location OR a.description LIKE CONCAT('%', :interest, '%')) " +
+            "(a.activityLocation = :tripActivityLocation OR a.description LIKE CONCAT('%', :tripInterest, '%')) " +
             "AND a.startTime > :startTime " +
-            "AND a.endTime < :endTime ")
+            "AND a.endTime < :endTime " +
+            "AND (a.activityType = :filterActivityType OR :filterActivityType = -1)" +
+            "AND (a.activityLocation = :filterActivityLocation OR :filterActivityLocation = '')" +
+            "AND (a.description = :filterActivityDescription OR :filterActivityDescription = '')")
     List<Activity> findActivitiesByCriteria(
-            @Param("location") String location,
+            @Param("tripActivityLocation") String tripActivityLocation,
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime,
-            @Param("interest") String interest);
+            @Param("tripInterest") String tripInterest,
+            @Param("filterActivityType") Integer filterActivityType,
+            @Param("filterActivityLocation") String filterActivityLocation,
+            @Param("filterActivityDescription") String filterActivityDescription);
 }
