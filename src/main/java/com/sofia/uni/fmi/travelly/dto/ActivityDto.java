@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ActivityDto {
     private Long id;
-    private Itinerary itinerary;
     private ActivityType activityType;
     private String activityLocation;
     private LocalDateTime startTime;
