@@ -1,17 +1,16 @@
 package com.sofia.uni.fmi.travelly.controller;
 
 import com.sofia.uni.fmi.travelly.dto.*;
-import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
-import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
-import com.sofia.uni.fmi.travelly.mapper.TripMapper;
-import com.sofia.uni.fmi.travelly.model.Trip;
-import com.sofia.uni.fmi.travelly.service.ItemService;
-import com.sofia.uni.fmi.travelly.service.ItineraryService;
-import com.sofia.uni.fmi.travelly.service.TripService;
+import com.sofia.uni.fmi.travelly.mapper.*;
+import com.sofia.uni.fmi.travelly.model.*;
+import com.sofia.uni.fmi.travelly.service.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -27,15 +26,34 @@ public class TripController {
     private final ItineraryService itineraryService;
     private final ItineraryMapper itineraryMapper;
 
+    private final ActivityService activityService;
+    private final ActivityMapper activityMapper;
+
+    private final AccommodationService accommodationService;
+    private final AccommodationMapper accommodationMapper;
+
+    private final TransportationOptionService transportationOptionService;
+    private final TransportationOptionMapper transportationOptionMapper;
+
     public TripController(TripService tripService, TripMapper tripMapper,
                           ItemService itemService, ItemMapper itemMapper,
-                          ItineraryService itineraryService, ItineraryMapper itineraryMapper) {
+                          ItineraryService itineraryService, ItineraryMapper itineraryMapper,
+                          ActivityService activityService, ActivityMapper activityMapper,
+                          AccommodationService accommodationService, AccommodationMapper accommodationMapper,
+                          TransportationOptionService transportationOptionService,
+                          TransportationOptionMapper transportationOptionMapper) {
         this.tripService = tripService;
         this.tripMapper = tripMapper;
         this.itemService = itemService;
         this.itemMapper = itemMapper;
         this.itineraryService = itineraryService;
         this.itineraryMapper = itineraryMapper;
+        this.activityService = activityService;
+        this.activityMapper = activityMapper;
+        this.accommodationService = accommodationService;
+        this.accommodationMapper = accommodationMapper;
+        this.transportationOptionService = transportationOptionService;
+        this.transportationOptionMapper = transportationOptionMapper;
     }
 
     @GetMapping("{tripId}")
@@ -93,4 +111,64 @@ public class TripController {
     public void deleteAllItineraries(@PathVariable Long tripId) {
         itineraryService.deleteAllItineraries(tripId);
     }
-}
+
+    @GetMapping("{tripId}/activities/recommend")
+    public List<ActivityDto> recommendActivities(
+            @PathVariable Long tripId,
+            @RequestParam ActivityType activityType,
+            @RequestParam(value = "location", required = false, defaultValue = "") String location,
+            @RequestParam(value = "startDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(value = "endDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+            @RequestParam(value = "description", required = false, defaultValue = "") String description) {
+        List<Activity> recommendedActivities = activityService
+                .recommendActivities(tripId, activityType, location, startDate, endDate, description);
+
+        List<ActivityDto> recommendedActivitiesDto =
+                recommendedActivities
+                        .stream()
+                        .map(activity -> activityMapper.toDto(activity))
+                        .collect(Collectors.toList());
+
+        return recommendedActivitiesDto;
+    }
+
+    @GetMapping("{tripId}/accommodations/recommend")
+    public List<AccommodationDto> recommendAccommodations(
+            @PathVariable Long tripId,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name,
+            @RequestParam(value = "address", required = false, defaultValue = "") String address,
+            @RequestParam(value = "city", required = false, defaultValue = "") String city,
+            @RequestParam(value = "pricePerNightFrom", required = false, defaultValue = "-1") Double pricePerNightFrom,
+            @RequestParam(value = "pricePerNightTo", required = false, defaultValue = "-1") Double pricePerNightTo)
+        {
+            List<Accommodation> recommendedAccommodations = accommodationService.recommendAccommodations(
+                    tripId, name, address, city, pricePerNightFrom, pricePerNightTo);
+
+            List<AccommodationDto> recommendedAccommodationsDto =
+                    recommendedAccommodations
+                            .stream()
+                            .map(accommodation -> accommodationMapper.toDto(accommodation))
+                            .collect(Collectors.toList());
+
+            return recommendedAccommodationsDto;
+        }
+
+        @GetMapping("{tripId}/transportationOptions/recommend")
+        public List<TransportationOptionDto> recommendTransportationOptions (
+                @PathVariable Long tripId,
+                @RequestParam TransportationOptionType transportationOptionType,
+                @RequestParam(value = "priceFrom", required = false, defaultValue = "-1.0") Double priceFrom,
+                @RequestParam(value = "priceTo", required = false, defaultValue = "-1.0") Double priceTo){
+            List<TransportationOption> recommendedTransportationOptions =
+                    transportationOptionService
+                            .recommendTransportationOptions(tripId, transportationOptionType, priceFrom, priceTo);
+
+            List<TransportationOptionDto> recommendedTransportationOptionDto =
+                    recommendedTransportationOptions
+                            .stream()
+                            .map(transportationOption -> transportationOptionMapper.toDto(transportationOption))
+                            .collect(Collectors.toList());
+
+            return recommendedTransportationOptionDto;
+        }
+    }
