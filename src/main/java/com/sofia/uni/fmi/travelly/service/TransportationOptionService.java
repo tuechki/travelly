@@ -4,6 +4,7 @@ import com.sofia.uni.fmi.travelly.dto.TransportationOptionCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.TransportationOptionMapper;
 import com.sofia.uni.fmi.travelly.model.TransportationOption;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
+import com.sofia.uni.fmi.travelly.model.TransportationOptionType;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.repository.TransportationOptionRepository;
 import com.sofia.uni.fmi.travelly.repository.ItineraryRepository;
@@ -45,7 +46,8 @@ public class TransportationOptionService {
                     transportationOptionMapper.toEntity(transportationOptionCreateUpdateDto);
             Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
             newTransportationOption.setItinerary(itinerary);
-            TransportationOption savedTransportationOption = transportationOptionRepository.save(newTransportationOption);
+            TransportationOption savedTransportationOption =
+                    transportationOptionRepository.save(newTransportationOption);
 
             savedTransportationOptionIds.add(savedTransportationOption.getId());
         }
@@ -60,7 +62,8 @@ public class TransportationOptionService {
     }
 
     public TransportationOption updateTransportationOption(TransportationOption transportationOption) {
-        TransportationOption existingTransportationOption = transportationOptionRepository.findById(transportationOption.getId()).get();
+        TransportationOption existingTransportationOption =
+                transportationOptionRepository.findById(transportationOption.getId()).get();
         transportationOption.setItinerary(existingTransportationOption.getItinerary());
 
         return transportationOptionRepository.save(transportationOption);
@@ -70,11 +73,14 @@ public class TransportationOptionService {
         transportationOptionRepository.deleteById(transportationOptionId);
     }
 
-    public List<TransportationOption> recommendTransportationOptions(Long tripId) {
+    public List<TransportationOption> recommendTransportationOptions(
+            Long tripId, TransportationOptionType transportationOptionType, Double priceFrom, Double priceTo) {
         Trip trip = tripService.getTripById(tripId);
 
         List<TransportationOption> recommendedTransportationOptions =
-                transportationOptionRepository.findTransportationOptionsByCriteria(trip.getBudget());
+                transportationOptionRepository
+                        .findTransportationOptionsByCriteria(
+                                trip.getBudget(), transportationOptionType, priceFrom, priceTo);
 
         return recommendedTransportationOptions;
     }
