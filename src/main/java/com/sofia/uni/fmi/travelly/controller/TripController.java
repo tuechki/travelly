@@ -1,8 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
-import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
-import com.sofia.uni.fmi.travelly.dto.ItineraryCreateUpdateDto;
-import com.sofia.uni.fmi.travelly.dto.TripDto;
+import com.sofia.uni.fmi.travelly.dto.*;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
@@ -59,10 +57,10 @@ public class TripController {
 
 
     @GetMapping("{tripId}/items")
-    public List<ItemCreateUpdateDto> getItemsByTripId(@PathVariable Long tripId) {
+    public List<ItemDto> getItemsByTripId(@PathVariable Long tripId) {
         return itemService.getItemsByTripId(tripId)
                 .stream()
-                .map(item -> itemMapper.toItemCreateDto(item))
+                .map(item -> itemMapper.toDto(item))
                 .toList();
     }
 
