@@ -28,8 +28,8 @@ public class ItemService {
     }
 
 
-    public Long addItem(ItemCreateDto itemCreateDto, Long tripId) {
-        Item newItem = itemMapper.toEntity(itemCreateDto);
+    public Long addItem(ItemCreateUpdateDto itemCreateUpdateDto, Long tripId) {
+        Item newItem = itemMapper.toEntity(itemCreateUpdateDto);
         Trip trip = tripRepository.findById(tripId).get();
         newItem.setTrip(trip);
         Item savedItem = itemRepository.save(newItem);
