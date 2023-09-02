@@ -4,6 +4,7 @@ import com.sofia.uni.fmi.travelly.dto.*;
 import com.sofia.uni.fmi.travelly.mapper.*;
 import com.sofia.uni.fmi.travelly.model.Accommodation;
 import com.sofia.uni.fmi.travelly.model.Activity;
+import com.sofia.uni.fmi.travelly.model.TransportationOption;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -32,12 +33,16 @@ public class TripController {
     private final AccommodationService accommodationService;
     private final AccommodationMapper accommodationMapper;
 
+    private final TransportationOptionService transportationOptionService;
+    private final TransportationOptionMapper transportationOptionMapper;
 
     public TripController(TripService tripService, TripMapper tripMapper,
                           ItemService itemService, ItemMapper itemMapper,
                           ItineraryService itineraryService, ItineraryMapper itineraryMapper,
                           ActivityService activityService, ActivityMapper activityMapper,
-                          AccommodationService accommodationService, AccommodationMapper accommodationMapper) {
+                          AccommodationService accommodationService, AccommodationMapper accommodationMapper,
+                          TransportationOptionService transportationOptionService,
+                          TransportationOptionMapper transportationOptionMapper) {
         this.tripService = tripService;
         this.tripMapper = tripMapper;
         this.itemService = itemService;
@@ -48,6 +53,8 @@ public class TripController {
         this.activityMapper = activityMapper;
         this.accommodationService = accommodationService;
         this.accommodationMapper = accommodationMapper;
+        this.transportationOptionService = transportationOptionService;
+        this.transportationOptionMapper = transportationOptionMapper;
     }
 
     @GetMapping("{tripId}")
@@ -130,5 +137,19 @@ public class TripController {
                         .collect(Collectors.toList());
 
         return recommendedAccommodationsDto;
+    }
+
+    @GetMapping("{tripId}/transportationOptions/recommend")
+    public List<TransportationOptionDto> recommendTransportationOptions(@PathVariable Long tripId) {
+        List<TransportationOption> recommendedTransportationOptions =
+                transportationOptionService.recommendTransportationOptions(tripId);
+
+        List<TransportationOptionDto> recommendedTransportationOptionDto =
+                recommendedTransportationOptions
+                        .stream()
+                        .map(transportationOption -> transportationOptionMapper.toDto(transportationOption))
+                        .collect(Collectors.toList());
+
+        return recommendedTransportationOptionDto;
     }
 }

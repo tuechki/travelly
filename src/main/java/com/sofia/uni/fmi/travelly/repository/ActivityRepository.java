@@ -1,6 +1,5 @@
 package com.sofia.uni.fmi.travelly.repository;
 
-import com.sofia.uni.fmi.travelly.dto.ActivityDto;
 import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import org.springframework.data.jpa.repository.JpaRepository;
