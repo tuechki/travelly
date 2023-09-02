@@ -10,7 +10,6 @@ public class ActivityMapper {
     public ActivityDto toDto(Activity activity) {
         return ActivityDto.builder()
                 .id(activity.getId())
-                .itinerary(activity.getItinerary())
                 .activityType(activity.getActivityType())
                 .activityLocation(activity.getActivityLocation())
                 .startTime(activity.getStartTime())
@@ -22,7 +21,6 @@ public class ActivityMapper {
     public Activity toEntity(ActivityDto activityDto) {
         return Activity.builder()
                 .id(activityDto.getId())
-                .itinerary(activityDto.getItinerary())
                 .activityType(activityDto.getActivityType())
                 .activityLocation(activityDto.getActivityLocation())
                 .startTime(activityDto.getStartTime())
