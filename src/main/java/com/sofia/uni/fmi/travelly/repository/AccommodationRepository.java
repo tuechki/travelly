@@ -19,8 +19,16 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
             "(a.name LIKE CONCAT('%', :interest, '%') " +
             "OR a.address LIKE CONCAT('%', :interest, '%')" +
             "OR a.city LIKE CONCAT('%', :interest, '%')) " +
-            "AND a.pricePerNight <= :budget")
-    List<Accommodation> findAccommodationsByCriteria(
+            "AND a.pricePerNight <= :budget " +
+            "AND (a.name = :filterName OR :filterName = '')" +
+            "AND (a.address = :filterAddress OR :filterAddress = '')" +
+            "AND (a.city = :filterCity OR :filterCity = '')" +
+            "AND (a.pricePerNight = :filterPricePerNight OR :filterPricePerNight = -1)")
+            List<Accommodation> findAccommodationsByCriteria(
             @Param("budget") Double budget,
-            @Param("interest") String interest);
+            @Param("interest") String interest,
+            @Param("filterName") String filterName,
+            @Param("filterAddress") String filterAddress,
+            @Param("filterCity") String filterCity,
+            @Param("filterPricePerNight") Double filterPricePerNight);
 }

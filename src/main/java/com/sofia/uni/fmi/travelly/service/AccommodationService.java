@@ -69,7 +69,8 @@ public class AccommodationService {
         accommodationRepository.deleteById(accommodationId);
     }
 
-    public List<Accommodation> recommendAccommodations(Long tripId) {
+    public List<Accommodation> recommendAccommodations(
+            Long tripId, String name, String address, String city, Double pricePerNight) {
         Trip trip = tripService.getTripById(tripId);
         List<String> interests = Arrays.stream(trip.getInterests().split(","))
                 .map(interest -> interest.trim())
@@ -79,7 +80,7 @@ public class AccommodationService {
         for (String interest : interests) {
             List <Accommodation> currentRecommendedAccommodations =
                     accommodationRepository.findAccommodationsByCriteria(
-                            trip.getBudget(), interest) ;
+                            trip.getBudget(), interest, name, address, city, pricePerNight) ;
             currentRecommendedAccommodations
                     .stream()
                     .forEach(accommodation -> recommendedAccommodations.add(accommodation));
