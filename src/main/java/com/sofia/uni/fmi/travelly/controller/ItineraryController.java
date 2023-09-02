@@ -65,10 +65,10 @@ public class ItineraryController {
     }
 
     @PostMapping("{itineraryId}/activities")
-    public void addActivity(
+    public Long addActivity(
             @PathVariable Long itineraryId,
             @RequestBody ActivityCreateUpdateDto activityCreateUpdateDto) {
-        activityService.addActivity(activityCreateUpdateDto, itineraryId);
+        return activityService.addActivity(activityCreateUpdateDto, itineraryId);
     }
 
     @DeleteMapping("{itineraryId}/activities")
