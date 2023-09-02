@@ -1,14 +1,17 @@
 package com.sofia.uni.fmi.travelly.service;
 
 import com.sofia.uni.fmi.travelly.dto.AccommodationCreateUpdateDto;
+import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.AccommodationMapper;
 import com.sofia.uni.fmi.travelly.model.Accommodation;
+import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.repository.AccommodationRepository;
 import com.sofia.uni.fmi.travelly.repository.ItineraryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,14 +33,20 @@ public class AccommodationService {
         return accommodationRepository.findAllByItinerary(itineraryRepository.findById(itineraryId).get());
     }
 
+    public List<Long> addAccommodations(
+            List<AccommodationCreateUpdateDto> accommodationCreateUpdateDtoList, Long itineraryId) {
+        List<Long> savedAccommodationsIds = new ArrayList<>();
 
-    public Long addAccommodation(AccommodationCreateUpdateDto accommodationCreateUpdateDto, Long itineraryId) {
-        Accommodation newAccommodation = accommodationMapper.toEntity(accommodationCreateUpdateDto);
-        Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
-        newAccommodation.setItinerary(itinerary);
-        Accommodation savedAccommodation = accommodationRepository.save(newAccommodation);
+        for(AccommodationCreateUpdateDto accommodationCreateUpdateDto : accommodationCreateUpdateDtoList) {
+            Accommodation newAccommodation = accommodationMapper.toEntity(accommodationCreateUpdateDto);
+            Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
+            newAccommodation.setItinerary(itinerary);
+            Accommodation savedAccommodation = accommodationRepository.save(newAccommodation);
 
-        return savedAccommodation.getId();
+            savedAccommodationsIds.add(savedAccommodation.getId());
+        }
+
+        return savedAccommodationsIds;
     }
 
     @Transactional

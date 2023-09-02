@@ -94,10 +94,10 @@ public class ItineraryController {
     }
 
     @PostMapping("{itineraryId}/accommodations")
-    public Long addAccommodation(
+    public List<Long> addAccommodation(
             @PathVariable Long itineraryId,
-            @RequestBody AccommodationCreateUpdateDto accommodationCreateUpdateDto) {
-        return accommodationService.addAccommodation(accommodationCreateUpdateDto, itineraryId);
+            @RequestBody List<AccommodationCreateUpdateDto> accommodationCreateUpdateDtoList) {
+        return accommodationService.addAccommodations(accommodationCreateUpdateDtoList, itineraryId);
     }
 
     @DeleteMapping("{itineraryId}/accommodations")
