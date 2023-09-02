@@ -1,10 +1,13 @@
 package com.sofia.uni.fmi.travelly.controller;
 
 import com.sofia.uni.fmi.travelly.dto.*;
+import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
+import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.Trip;
+import com.sofia.uni.fmi.travelly.service.ActivityService;
 import com.sofia.uni.fmi.travelly.service.ItemService;
 import com.sofia.uni.fmi.travelly.service.ItineraryService;
 import com.sofia.uni.fmi.travelly.service.TripService;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -27,15 +31,21 @@ public class TripController {
     private final ItineraryService itineraryService;
     private final ItineraryMapper itineraryMapper;
 
+    private final ActivityService activityService;
+    private final ActivityMapper activityMapper;
+
     public TripController(TripService tripService, TripMapper tripMapper,
                           ItemService itemService, ItemMapper itemMapper,
-                          ItineraryService itineraryService, ItineraryMapper itineraryMapper) {
+                          ItineraryService itineraryService, ItineraryMapper itineraryMapper,
+                          ActivityService activityService, ActivityMapper activityMapper) {
         this.tripService = tripService;
         this.tripMapper = tripMapper;
         this.itemService = itemService;
         this.itemMapper = itemMapper;
         this.itineraryService = itineraryService;
         this.itineraryMapper = itineraryMapper;
+        this.activityService = activityService;
+        this.activityMapper = activityMapper;
     }
 
     @GetMapping("{tripId}")
@@ -92,5 +102,18 @@ public class TripController {
     @DeleteMapping("{tripId}/itineraries")
     public void deleteAllItineraries(@PathVariable Long tripId) {
         itineraryService.deleteAllItineraries(tripId);
+    }
+
+    @GetMapping("{tripId}/activities/recommend")
+    public List<ActivityDto> recommendActivities(@PathVariable Long tripId) {
+        List<Activity> recommendedActivities = activityService.recommendActivities(tripId);
+
+        List<ActivityDto> recommendedActivitiesDto =
+                recommendedActivities
+                        .stream()
+                        .map(activity -> activityMapper.toDto(activity))
+                        .collect(Collectors.toList());
+
+        return recommendedActivitiesDto;
     }
 }

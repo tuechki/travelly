@@ -1,29 +1,34 @@
 package com.sofia.uni.fmi.travelly.service;
+
 import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
+import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.repository.ActivityRepository;
 import com.sofia.uni.fmi.travelly.repository.ItineraryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityService {
     private ActivityRepository activityRepository;
     private ItineraryRepository itineraryRepository;
     private ActivityMapper activityMapper;
+    private TripService tripService;
 
     public ActivityService(
             ActivityRepository activityRepository,
             ItineraryRepository itineraryRepository,
-            ActivityMapper activityMapper) {
+            ActivityMapper activityMapper,
+            TripService tripService) {
         this.activityRepository = activityRepository;
         this.itineraryRepository = itineraryRepository;
         this.activityMapper = activityMapper;
+        this.tripService = tripService;
     }
 
     public List<Activity> getActivitiesByItineraryId(Long itineraryId) {
@@ -34,7 +39,7 @@ public class ActivityService {
     public List<Long> addActivities(List<ActivityCreateUpdateDto> activityCreateUpdateDtoList, Long itineraryId) {
         List<Long> savedActivitiesIds = new ArrayList<>();
 
-        for(ActivityCreateUpdateDto activityCreateUpdateDto : activityCreateUpdateDtoList) {
+        for (ActivityCreateUpdateDto activityCreateUpdateDto : activityCreateUpdateDtoList) {
             Activity newActivity = activityMapper.toEntity(activityCreateUpdateDto);
             Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
             newActivity.setItinerary(itinerary);
@@ -61,5 +66,26 @@ public class ActivityService {
 
     public void deleteActivity(Long activityId) {
         activityRepository.deleteById(activityId);
+    }
+
+    public List<Activity> recommendActivities(Long tripId) {
+        Trip trip = tripService.getTripById(tripId);
+        List<String> interests = Arrays.stream(trip.getInterests().split(","))
+                .map(interest -> interest.trim())
+                .collect(Collectors.toList());
+
+        Set<Activity> recommendedActivities = new HashSet<>();
+        for (String interest : interests) {
+                List < Activity > currentRecommendedActivities =
+                        activityRepository.findActivitiesByCriteria(
+                                trip.getDestination(), trip.getStartDate(), trip.getEndDate(), interest) ;
+        currentRecommendedActivities
+                .stream()
+                .forEach(activity -> recommendedActivities.add(activity));
+        }
+
+        return recommendedActivities
+                .stream()
+                .collect(Collectors.toList());
     }
 }
