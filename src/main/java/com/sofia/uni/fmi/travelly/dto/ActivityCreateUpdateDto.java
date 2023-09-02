@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ActivityCreateUpdateDto {
-    private ActivityType activityType;
-    private String activityLocation;
+    private ActivityType type;
+    private String location;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String description;
