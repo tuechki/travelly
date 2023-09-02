@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransportationOptionDto {
     private Long id;
-    private Itinerary itinerary;
     private TransportationOptionType type;
     private LocalDateTime duration;
     private Double price;

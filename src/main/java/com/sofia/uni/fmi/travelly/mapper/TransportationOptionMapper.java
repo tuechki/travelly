@@ -15,7 +15,6 @@ public class TransportationOptionMapper {
     public TransportationOption toEntity(TransportationOptionDto transportationOptionDto) {
         return TransportationOption.builder()
                 .id(transportationOptionDto.getId())
-                .itinerary(transportationOptionDto.getItinerary())
                 .type(transportationOptionDto.getType())
                 .duration(transportationOptionDto.getDuration())
                 .price(transportationOptionDto.getPrice())
@@ -25,7 +24,6 @@ public class TransportationOptionMapper {
     public TransportationOptionDto toDto(TransportationOption transportationOption) {
         return TransportationOptionDto.builder()
                 .id(transportationOption.getId())
-                .itinerary(transportationOption.getItinerary())
                 .type(transportationOption.getType())
                 .duration(transportationOption.getDuration())
                 .price(transportationOption.getPrice())
