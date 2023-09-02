@@ -65,8 +65,8 @@ public class TripController {
     }
 
     @PostMapping("{tripId}/items")
-    public void addItem(@PathVariable Long tripId, @RequestBody ItemCreateUpdateDto itemCreateUpdateDto) {
-        itemService.addItem(itemCreateUpdateDto, tripId);
+    public Long addItem(@PathVariable Long tripId, @RequestBody ItemCreateUpdateDto itemCreateUpdateDto) {
+        return itemService.addItem(itemCreateUpdateDto, tripId);
     }
 
     @DeleteMapping("{tripId}/items")
