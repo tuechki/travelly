@@ -83,8 +83,8 @@ public class TripController {
     }
 
     @PostMapping("{tripId}/itineraries")
-    public void addItinerary(@PathVariable Long tripId, @RequestBody ItineraryCreateUpdateDto itineraryCreateUpdateDto) {
-        itineraryService.addItinerary(itineraryCreateUpdateDto, tripId);
+    public Long addItinerary(@PathVariable Long tripId, @RequestBody ItineraryCreateUpdateDto itineraryCreateUpdateDto) {
+        return itineraryService.addItinerary(itineraryCreateUpdateDto, tripId);
     }
 
     @DeleteMapping("{tripId}/itineraries")
