@@ -4,10 +4,12 @@ import com.sofia.uni.fmi.travelly.dto.*;
 import com.sofia.uni.fmi.travelly.mapper.AccommodationMapper;
 import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
+import com.sofia.uni.fmi.travelly.mapper.TransportationOptionMapper;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.service.AccommodationService;
 import com.sofia.uni.fmi.travelly.service.ActivityService;
 import com.sofia.uni.fmi.travelly.service.ItineraryService;
+import com.sofia.uni.fmi.travelly.service.TransportationOptionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,13 +26,18 @@ public class ItineraryController {
     private AccommodationService accommodationService;
     private AccommodationMapper accommodationMapper;
 
+    private TransportationOptionService transportationOptionService;
+    private TransportationOptionMapper transportationOptionMapper;
+
     public ItineraryController(
             ItineraryService itineraryService,
             ItineraryMapper itineraryMapper,
             ActivityService activityService,
             ActivityMapper activityMapper,
             AccommodationService accommodationService,
-            AccommodationMapper accommodationMapper
+            AccommodationMapper accommodationMapper,
+            TransportationOptionService transportationOptionService,
+            TransportationOptionMapper transportationOptionMapper
     ) {
         this.itineraryService = itineraryService;
         this.itineraryMapper = itineraryMapper;
@@ -38,6 +45,8 @@ public class ItineraryController {
         this.activityMapper = activityMapper;
         this.accommodationService = accommodationService;
         this.accommodationMapper = accommodationMapper;
+        this.transportationOptionService = transportationOptionService;
+        this.transportationOptionMapper = transportationOptionMapper;
     }
 
     @PatchMapping("{itineraryId}")
@@ -94,5 +103,25 @@ public class ItineraryController {
     @DeleteMapping("{itineraryId}/accommodations")
     public void deleteAllAccommodations(@PathVariable Long itineraryId) {
         accommodationService.deleteAllAccommodations(itineraryId);
+    }
+
+    @GetMapping("{itineraryId}/transportationOptions")
+    public List<TransportationOptionDto> getTransportationOptionsByItineraryId(@PathVariable Long itineraryId) {
+        return transportationOptionService.getTransportationOptionsByItineraryId(itineraryId)
+                .stream()
+                .map(transportationOption -> transportationOptionMapper.toDto(transportationOption))
+                .toList();
+    }
+
+    @PostMapping("{itineraryId}/transportationOptions")
+    public Long addTransportationOption(
+            @PathVariable Long itineraryId,
+            @RequestBody TransportationOptionCreateUpdateDto transportationOptionCreateUpdateDto) {
+        return transportationOptionService.addTransportationOption(transportationOptionCreateUpdateDto, itineraryId);
+    }
+
+    @DeleteMapping("{itineraryId}/transportationOptions")
+    public void deleteAllTransportationOptions(@PathVariable Long itineraryId) {
+        transportationOptionService.deleteAllTransportationOptions(itineraryId);
     }
 }
