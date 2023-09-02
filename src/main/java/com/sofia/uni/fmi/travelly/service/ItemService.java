@@ -1,11 +1,8 @@
 package com.sofia.uni.fmi.travelly.service;
 
-import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
-import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.Item;
-import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.repository.ItemRepository;
 import com.sofia.uni.fmi.travelly.repository.TripRepository;
