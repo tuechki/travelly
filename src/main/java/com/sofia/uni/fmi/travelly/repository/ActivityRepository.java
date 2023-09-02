@@ -1,6 +1,7 @@
 package com.sofia.uni.fmi.travelly.repository;
 
 import com.sofia.uni.fmi.travelly.model.Activity;
+import com.sofia.uni.fmi.travelly.model.ActivityType;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,7 +28,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime,
             @Param("interest") String interest,
-            @Param("filterType") Integer filterType,
+            @Param("filterType") ActivityType filterType,
             @Param("filterLocation") String filterLocation,
             @Param("filterDescription") String filterDescription);
 }
