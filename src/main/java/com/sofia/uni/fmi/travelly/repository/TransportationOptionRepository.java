@@ -1,9 +1,6 @@
 package com.sofia.uni.fmi.travelly.repository;
 
-import com.sofia.uni.fmi.travelly.model.Accommodation;
-import com.sofia.uni.fmi.travelly.model.Activity;
-import com.sofia.uni.fmi.travelly.model.Itinerary;
-import com.sofia.uni.fmi.travelly.model.TransportationOption;
+import com.sofia.uni.fmi.travelly.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +14,14 @@ public interface TransportationOptionRepository extends JpaRepository<Transporta
 
     void deleteByItinerary(Itinerary itinerary);
 
-    @Query("SELECT a FROM TransportationOption a WHERE a.price <= :budget")
-    List<TransportationOption> findTransportationOptionsByCriteria(@Param("budget") Double budget);
+    @Query("SELECT a FROM TransportationOption a " +
+            "WHERE a.price <= :budget " +
+            "AND a.type = :filterType " +
+            "AND (a.price >= :filterPriceFrom OR :filterPriceFrom = -1)" +
+            "AND (a.price <= :filterPriceTo OR :filterPriceTo = -1)")
+    List<TransportationOption> findTransportationOptionsByCriteria(
+            @Param("budget") Double budget,
+            @Param("filterType") TransportationOptionType filterType,
+            @Param("filterPriceFrom") Double filterPriceFrom,
+            @Param("filterPriceTo") Double filterPriceTo);
 }
