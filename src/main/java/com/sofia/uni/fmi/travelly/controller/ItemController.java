@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
+import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ItemDto;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
 import com.sofia.uni.fmi.travelly.model.Item;
@@ -17,14 +18,14 @@ public class ItemController {
         this.itemMapper = itemMapper;
     }
 
-    @PutMapping("{itemId}")
-    public ItemDto updateItem(@PathVariable Long itemId, @RequestBody ItemDto itemDto) {
-        Item item = itemMapper.toEntity(itemDto);
+    @PatchMapping("{itemId}")
+    public Long updateItem(@PathVariable Long itemId, @RequestBody ItemCreateUpdateDto itemCreateUpdateDto) {
+        Item item = itemMapper.toEntity(itemCreateUpdateDto);
         item.setId(itemId);
         Item updatedItem = itemService.updateItem(item);
         ItemDto updatedItemDto = itemMapper.toDto(updatedItem);
 
-        return updatedItemDto;
+        return updatedItemDto.getId();
     }
 
     @DeleteMapping("{itemId}")
