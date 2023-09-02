@@ -1,6 +1,6 @@
 package com.sofia.uni.fmi.travelly.service;
 
-import com.sofia.uni.fmi.travelly.dto.ItemCreateDto;
+import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
 import com.sofia.uni.fmi.travelly.model.Item;
 import com.sofia.uni.fmi.travelly.model.Trip;
@@ -42,6 +42,9 @@ public class ItemService {
     }
 
     public Item updateItem(Item item) {
+        Item existingItem = itemRepository.findById(item.getId()).get();
+        item.setTrip(existingItem.getTrip());
+
         return itemRepository.save(item);
     }
 
