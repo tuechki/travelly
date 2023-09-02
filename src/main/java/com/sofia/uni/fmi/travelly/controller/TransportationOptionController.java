@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
+import com.sofia.uni.fmi.travelly.dto.TransportationOptionCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.TransportationOptionDto;
 import com.sofia.uni.fmi.travelly.mapper.TransportationOptionMapper;
 import com.sofia.uni.fmi.travelly.model.TransportationOption;
@@ -19,15 +20,16 @@ public class TransportationOptionController {
         this.transportationOptionMapper = transportationOptionMapper;
     }
 
-    @PutMapping("{transportationOptionId}")
-    public TransportationOptionDto updateTransportationOption(
-            @PathVariable Long transportationOptionId, @RequestBody TransportationOptionDto transportationOptionDto) {
-        TransportationOption transportationOption = transportationOptionMapper.toEntity(transportationOptionDto);
+    @PatchMapping("{transportationOptionId}")
+    public Long updateTransportationOption(
+            @PathVariable Long transportationOptionId,
+            @RequestBody TransportationOptionCreateUpdateDto transportationOptionCreateUpdateDto) {
+        TransportationOption transportationOption = transportationOptionMapper.toEntity(transportationOptionCreateUpdateDto);
         transportationOption.setId(transportationOptionId);
-        TransportationOption updatedTransportationOption =
-                transportationOptionService.updateTransportationOption(transportationOption);
+        TransportationOption updatedTransportationOption = transportationOptionService.updateTransportationOption(transportationOption);
+        TransportationOptionDto updatedTransportationOptionDto = transportationOptionMapper.toDto(updatedTransportationOption);
 
-        return transportationOptionMapper.toDto(updatedTransportationOption);
+        return updatedTransportationOptionDto.getId();
     }
 
     @DeleteMapping("{transportationOptionId}")

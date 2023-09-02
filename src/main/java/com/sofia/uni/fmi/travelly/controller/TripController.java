@@ -1,8 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
-import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
-import com.sofia.uni.fmi.travelly.dto.ItineraryCreateUpdateDto;
-import com.sofia.uni.fmi.travelly.dto.TripDto;
+import com.sofia.uni.fmi.travelly.dto.*;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
 import com.sofia.uni.fmi.travelly.mapper.TripMapper;
@@ -29,7 +27,7 @@ public class TripController {
     private final ItineraryService itineraryService;
     private final ItineraryMapper itineraryMapper;
 
-    public TripController(TripService tripService,TripMapper tripMapper,
+    public TripController(TripService tripService, TripMapper tripMapper,
                           ItemService itemService, ItemMapper itemMapper,
                           ItineraryService itineraryService, ItineraryMapper itineraryMapper) {
         this.tripService = tripService;
@@ -59,16 +57,18 @@ public class TripController {
 
 
     @GetMapping("{tripId}/items")
-    public List<ItemCreateUpdateDto> getItemsByTripId(@PathVariable Long tripId) {
+    public List<ItemDto> getItemsByTripId(@PathVariable Long tripId) {
         return itemService.getItemsByTripId(tripId)
                 .stream()
-                .map(item -> itemMapper.toItemCreateDto(item))
+                .map(item -> itemMapper.toDto(item))
                 .toList();
     }
 
     @PostMapping("{tripId}/items")
-    public void addItem(@PathVariable Long tripId, @RequestBody ItemCreateUpdateDto itemCreateUpdateDto) {
-        itemService.addItem(itemCreateUpdateDto, tripId);
+    public List<Long> addItems(
+            @PathVariable Long tripId,
+            @RequestBody List<ItemCreateUpdateDto> itemCreateUpdateDtoList) {
+        return itemService.addItems(itemCreateUpdateDtoList, tripId);
     }
 
     @DeleteMapping("{tripId}/items")
@@ -77,16 +77,16 @@ public class TripController {
     }
 
     @GetMapping("{tripId}/itineraries")
-    public List<ItineraryCreateUpdateDto> getItinerariesByTripId(@PathVariable Long tripId) {
+    public List<ItineraryDto> getItinerariesByTripId(@PathVariable Long tripId) {
         return itineraryService.getItinerariesByTripId(tripId)
                 .stream()
-                .map(itinerary -> itineraryMapper.toCreateUpdateDto(itinerary))
+                .map(itinerary -> itineraryMapper.toDto(itinerary))
                 .toList();
     }
 
     @PostMapping("{tripId}/itineraries")
-    public void addItinerary(@PathVariable Long tripId, @RequestBody ItineraryCreateUpdateDto itineraryCreateUpdateDto) {
-        itineraryService.addItinerary(itineraryCreateUpdateDto, tripId);
+    public Long addItinerary(@PathVariable Long tripId, @RequestBody ItineraryCreateUpdateDto itineraryCreateUpdateDto) {
+        return itineraryService.addItinerary(itineraryCreateUpdateDto, tripId);
     }
 
     @DeleteMapping("{tripId}/itineraries")

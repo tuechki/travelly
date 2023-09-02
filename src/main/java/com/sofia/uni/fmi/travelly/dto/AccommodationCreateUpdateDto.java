@@ -1,6 +1,5 @@
 package com.sofia.uni.fmi.travelly.dto;
 
-import com.sofia.uni.fmi.travelly.model.Trip;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDto {
-    private Long id;
+public class AccommodationCreateUpdateDto {
     private String name;
-    private String description;
-    private Double amount;
-    private boolean isPacked;
+    private String address;
+    private String city;
+    private Double pricePerNight;
 }

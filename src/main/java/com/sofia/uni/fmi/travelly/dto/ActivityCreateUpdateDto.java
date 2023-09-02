@@ -1,8 +1,6 @@
 package com.sofia.uni.fmi.travelly.dto;
 
 import com.sofia.uni.fmi.travelly.model.ActivityType;
-import com.sofia.uni.fmi.travelly.model.Itinerary;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +10,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ActivityDto {
-    private Long id;
+@NoArgsConstructor
+public class ActivityCreateUpdateDto {
     private ActivityType activityType;
     private String activityLocation;
     private LocalDateTime startTime;

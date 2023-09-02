@@ -1,14 +1,18 @@
 package com.sofia.uni.fmi.travelly.service;
 
+import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.ItemMapper;
+import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.Item;
+import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.repository.ItemRepository;
 import com.sofia.uni.fmi.travelly.repository.TripRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,14 +31,19 @@ public class ItemService {
         return itemRepository.findAllByTrip(tripRepository.findById(tripId).get());
     }
 
+    public List<Long> addItems(List<ItemCreateUpdateDto> itemCreateUpdateDtoList, Long tripId) {
+        List<Long> savedItemsIds = new ArrayList<>();
 
-    public Long addItem(ItemCreateUpdateDto itemCreateUpdateDto, Long tripId) {
-        Item newItem = itemMapper.toEntity(itemCreateUpdateDto);
-        Trip trip = tripRepository.findById(tripId).get();
-        newItem.setTrip(trip);
-        Item savedItem = itemRepository.save(newItem);
+        for (ItemCreateUpdateDto itemCreateUpdateDto : itemCreateUpdateDtoList) {
+            Item newItem = itemMapper.toEntity(itemCreateUpdateDto);
+            Trip trip = tripRepository.findById(tripId).get();
+            newItem.setTrip(trip);
+            Item savedItem = itemRepository.save(newItem);
 
-        return savedItem.getId();
+            savedItemsIds.add(savedItem.getId());
+        }
+
+        return savedItemsIds;
     }
 
     @Transactional
