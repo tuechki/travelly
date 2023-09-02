@@ -27,7 +27,7 @@ public class TripController {
     private final ItineraryService itineraryService;
     private final ItineraryMapper itineraryMapper;
 
-    public TripController(TripService tripService,TripMapper tripMapper,
+    public TripController(TripService tripService, TripMapper tripMapper,
                           ItemService itemService, ItemMapper itemMapper,
                           ItineraryService itineraryService, ItineraryMapper itineraryMapper) {
         this.tripService = tripService;
@@ -65,8 +65,10 @@ public class TripController {
     }
 
     @PostMapping("{tripId}/items")
-    public Long addItem(@PathVariable Long tripId, @RequestBody ItemCreateUpdateDto itemCreateUpdateDto) {
-        return itemService.addItem(itemCreateUpdateDto, tripId);
+    public List<Long> addItems(
+            @PathVariable Long tripId,
+            @RequestBody List<ItemCreateUpdateDto> itemCreateUpdateDtoList) {
+        return itemService.addItems(itemCreateUpdateDtoList, tripId);
     }
 
     @DeleteMapping("{tripId}/items")
