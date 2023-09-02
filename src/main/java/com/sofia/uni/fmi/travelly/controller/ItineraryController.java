@@ -57,10 +57,10 @@ public class ItineraryController {
     }
 
     @GetMapping("{itineraryId}/activities")
-    public List<ActivityCreateUpdateDto> getActivitiesByItineraryId(@PathVariable Long itineraryId) {
+    public List<ActivityDto> getActivitiesByItineraryId(@PathVariable Long itineraryId) {
         return activityService.getActivitiesByItineraryId(itineraryId)
                 .stream()
-                .map(activity -> activityMapper.toCreateUpdateDto(activity))
+                .map(activity -> activityMapper.toDto(activity))
                 .toList();
     }
 
