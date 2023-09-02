@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.controller;
 
+import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.dto.ActivityDto;
 import com.sofia.uni.fmi.travelly.model.Activity;
@@ -17,14 +18,16 @@ public class ActivityController {
         this.activityMapper = activityMapper;
     }
 
-    @PutMapping("{activityId}")
-    public ActivityDto updateActivity(@PathVariable Long activityId, @RequestBody ActivityDto activityDto) {
-        Activity activity = activityMapper.toEntity(activityDto);
+    @PatchMapping("{activityId}")
+    public Long updateActivity(
+            @PathVariable Long activityId,
+            @RequestBody ActivityCreateUpdateDto activityCreateUpdateDto) {
+        Activity activity = activityMapper.toEntity(activityCreateUpdateDto);
         activity.setId(activityId);
         Activity updatedActivity = activityService.updateActivity(activity);
         ActivityDto updatedActivityDto = activityMapper.toDto(updatedActivity);
 
-        return updatedActivityDto;
+        return updatedActivityDto.getId();
     }
 
     @DeleteMapping("{activityId}")
