@@ -1,6 +1,6 @@
 package com.sofia.uni.fmi.travelly.mapper;
 
-import com.sofia.uni.fmi.travelly.dto.ItemCreateDto;
+import com.sofia.uni.fmi.travelly.dto.ItemCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ItemDto;
 import com.sofia.uni.fmi.travelly.model.Item;
 import org.springframework.stereotype.Component;
@@ -18,9 +18,8 @@ public class ItemMapper {
                 .build();
     }
 
-    public ItemCreateDto toItemCreateDto(Item item) {
-        return ItemCreateDto.builder()
-                .id(item.getId())
+    public ItemCreateUpdateDto toItemCreateDto(Item item) {
+        return ItemCreateUpdateDto.builder()
                 .name(item.getName())
                 .description(item.getDescription())
                 .amount(item.getAmount())
@@ -39,13 +38,12 @@ public class ItemMapper {
                 .build();
     }
 
-    public Item toEntity(ItemCreateDto itemCreateDto) {
+    public Item toEntity(ItemCreateUpdateDto itemCreateUpdateDto) {
         return Item.builder()
-                .id(itemCreateDto.getId())
-                .name(itemCreateDto.getName())
-                .description(itemCreateDto.getDescription())
-                .amount(itemCreateDto.getAmount())
-                .isPacked(itemCreateDto.isPacked())
+                .name(itemCreateUpdateDto.getName())
+                .description(itemCreateUpdateDto.getDescription())
+                .amount(itemCreateUpdateDto.getAmount())
+                .isPacked(itemCreateUpdateDto.isPacked())
                 .build();
     }
 }
