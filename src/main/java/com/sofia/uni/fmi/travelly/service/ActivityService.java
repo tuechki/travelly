@@ -8,6 +8,7 @@ import com.sofia.uni.fmi.travelly.repository.ItineraryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,13 +31,19 @@ public class ActivityService {
     }
 
 
-    public Long addActivity(ActivityCreateUpdateDto activityCreateUpdateDto, Long itineraryId) {
-        Activity newActivity = activityMapper.toEntity(activityCreateUpdateDto);
-        Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
-        newActivity.setItinerary(itinerary);
-        Activity savedActivity = activityRepository.save(newActivity);
+    public List<Long> addActivities(List<ActivityCreateUpdateDto> activityCreateUpdateDtoList, Long itineraryId) {
+        List<Long> savedActivitiesIds = new ArrayList<>();
 
-        return savedActivity.getId();
+        for(ActivityCreateUpdateDto activityCreateUpdateDto : activityCreateUpdateDtoList) {
+            Activity newActivity = activityMapper.toEntity(activityCreateUpdateDto);
+            Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
+            newActivity.setItinerary(itinerary);
+            Activity savedActivity = activityRepository.save(newActivity);
+
+            savedActivitiesIds.add(savedActivity.getId());
+        }
+
+        return savedActivitiesIds;
     }
 
     @Transactional
