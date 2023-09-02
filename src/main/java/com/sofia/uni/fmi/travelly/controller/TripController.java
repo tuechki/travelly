@@ -113,12 +113,13 @@ public class TripController {
     }
 
     @GetMapping("{tripId}/activities/recommend")
-    public List<ActivityDto> recommendActivities(@PathVariable Long tripId,
-                                                 @RequestParam ActivityType activityType,
-                                                 @RequestParam(value = "location", required = false, defaultValue = "") String location,
-                                                 @RequestParam(value = "startDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-                                                 @RequestParam(value = "endDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-                                                 @RequestParam(value = "description", required = false, defaultValue = "") String description) {
+    public List<ActivityDto> recommendActivities(
+            @PathVariable Long tripId,
+            @RequestParam ActivityType activityType,
+            @RequestParam(value = "location", required = false, defaultValue = "") String location,
+            @RequestParam(value = "startDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(value = "endDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+            @RequestParam(value = "description", required = false, defaultValue = "") String description) {
         List<Activity> recommendedActivities = activityService
                 .recommendActivities(tripId, activityType, location, startDate, endDate, description);
 
@@ -132,8 +133,14 @@ public class TripController {
     }
 
     @GetMapping("{tripId}/accommodations/recommend")
-    public List<AccommodationDto> recommendAccommodations(@PathVariable Long tripId) {
-        List<Accommodation> recommendedAccommodations = accommodationService.recommendAccommodations(tripId);
+    public List<AccommodationDto> recommendAccommodations(
+            @PathVariable Long tripId,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name,
+            @RequestParam(value = "address", required = false, defaultValue = "") String address,
+            @RequestParam(value = "city", required = false, defaultValue = "") String city,
+            @RequestParam(value = "pricePerNight", required = false, defaultValue = "-1.0") Double pricePerNight) {
+        List<Accommodation> recommendedAccommodations = accommodationService.recommendAccommodations(
+                tripId, name, address, city, pricePerNight);
 
         List<AccommodationDto> recommendedAccommodationsDto =
                 recommendedAccommodations
