@@ -1,11 +1,11 @@
 package com.sofia.uni.fmi.travelly.controller;
 
-import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
-import com.sofia.uni.fmi.travelly.dto.ItineraryCreateUpdateDto;
-import com.sofia.uni.fmi.travelly.dto.ItineraryDto;
+import com.sofia.uni.fmi.travelly.dto.*;
+import com.sofia.uni.fmi.travelly.mapper.AccommodationMapper;
 import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.mapper.ItineraryMapper;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
+import com.sofia.uni.fmi.travelly.service.AccommodationService;
 import com.sofia.uni.fmi.travelly.service.ActivityService;
 import com.sofia.uni.fmi.travelly.service.ItineraryService;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +21,23 @@ public class ItineraryController {
     private ActivityService activityService;
     private ActivityMapper activityMapper;
 
+    private AccommodationService accommodationService;
+    private AccommodationMapper accommodationMapper;
 
     public ItineraryController(
             ItineraryService itineraryService,
             ItineraryMapper itineraryMapper,
             ActivityService activityService,
-            ActivityMapper activityMapper
+            ActivityMapper activityMapper,
+            AccommodationService accommodationService,
+            AccommodationMapper accommodationMapper
     ) {
         this.itineraryService = itineraryService;
         this.itineraryMapper = itineraryMapper;
         this.activityService = activityService;
         this.activityMapper = activityMapper;
+        this.accommodationService = accommodationService;
+        this.accommodationMapper = accommodationMapper;
     }
 
     @PatchMapping("{itineraryId}")
@@ -68,5 +74,25 @@ public class ItineraryController {
     @DeleteMapping("{itineraryId}/activities")
     public void deleteAllActivities(@PathVariable Long itineraryId) {
         activityService.deleteAllActivities(itineraryId);
+    }
+
+    @GetMapping("{itineraryId}/accommodations")
+    public List<AccommodationDto> getAccommodationsByItineraryId(@PathVariable Long itineraryId) {
+        return accommodationService.getAccommodationsByItineraryId(itineraryId)
+                .stream()
+                .map(accommodation -> accommodationMapper.toDto(accommodation))
+                .toList();
+    }
+
+    @PostMapping("{itineraryId}/accommodations")
+    public Long addAccommodation(
+            @PathVariable Long itineraryId,
+            @RequestBody AccommodationCreateUpdateDto accommodationCreateUpdateDto) {
+        return accommodationService.addAccommodation(accommodationCreateUpdateDto, itineraryId);
+    }
+
+    @DeleteMapping("{itineraryId}/accommodations")
+    public void deleteAllAccommodations(@PathVariable Long itineraryId) {
+        accommodationService.deleteAllAccommodations(itineraryId);
     }
 }
