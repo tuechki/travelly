@@ -1,5 +1,6 @@
 package com.sofia.uni.fmi.travelly.mapper;
 
+import com.sofia.uni.fmi.travelly.dto.ItineraryCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ItineraryDto;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,18 @@ public class ItineraryMapper {
                 .id(itinerary.getId())
                 .trip(itinerary.getTrip())
                 .dayNum(itinerary.getDayNum())
+                .build();
+    }
+
+    public ItineraryCreateUpdateDto toCreateUpdateDto(Itinerary itinerary) {
+        return ItineraryCreateUpdateDto.builder()
+                .dayNum(itinerary.getDayNum())
+                .build();
+    }
+
+    public Itinerary toEntity(ItineraryCreateUpdateDto itineraryCreateUpdateDto) {
+        return Itinerary.builder()
+                .dayNum(itineraryCreateUpdateDto.getDayNum())
                 .build();
     }
 }
