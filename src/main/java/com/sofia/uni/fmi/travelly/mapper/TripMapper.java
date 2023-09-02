@@ -24,6 +24,7 @@ public class TripMapper {
 
     public TripListDto toListDto(Trip entity) {
         return TripListDto.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .destination(entity.getDestination())
                 .startDate(entity.getStartDate())

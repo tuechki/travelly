@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TripListDto {
 
+    private Long id;
+
     private String name;
 
     private String destination;

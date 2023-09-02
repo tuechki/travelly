@@ -49,7 +49,7 @@ public class Trip {
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Itinerary> itineraries;
 
-    @ManyToMany(mappedBy = "trips", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "trips", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<User> users;
 
 
