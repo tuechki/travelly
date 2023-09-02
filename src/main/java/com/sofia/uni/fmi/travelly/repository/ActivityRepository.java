@@ -24,5 +24,5 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             @Param("location") String location,
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime,
-            @Param("interest") String interests);
+            @Param("interest") String interest);
 }
