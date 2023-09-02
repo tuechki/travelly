@@ -3,6 +3,7 @@ package com.sofia.uni.fmi.travelly.service;
 import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.ActivityMapper;
 import com.sofia.uni.fmi.travelly.model.Activity;
+import com.sofia.uni.fmi.travelly.model.ActivityType;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.model.Trip;
 import com.sofia.uni.fmi.travelly.repository.ActivityRepository;
@@ -10,6 +11,7 @@ import com.sofia.uni.fmi.travelly.repository.ItineraryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,20 +70,46 @@ public class ActivityService {
         activityRepository.deleteById(activityId);
     }
 
-    public List<Activity> recommendActivities(Long tripId) {
+    public List<Activity> recommendActivities(
+            Long tripId,
+            ActivityType activityType,
+            String activityLocation,
+            LocalDateTime startTime,
+            LocalDateTime endTime,
+            String description
+    ) {
         Trip trip = tripService.getTripById(tripId);
         List<String> interests = Arrays.stream(trip.getInterests().split(","))
                 .map(interest -> interest.trim())
                 .collect(Collectors.toList());
 
+        LocalDateTime maxStartTime;
+
+        if (trip.getStartDate().isAfter(startTime)) {
+            maxStartTime = trip.getStartDate();
+        } else {
+            maxStartTime = startTime;
+        }
+
+        LocalDateTime minEndTime;
+
+        if (trip.getEndDate().isAfter(endTime)
+                && !endTime.isEqual(
+                LocalDateTime.of(1970, 01, 01, 00, 00, 00))) {
+            minEndTime = endTime;
+        } else {
+            minEndTime = trip.getEndDate();
+        }
+
         Set<Activity> recommendedActivities = new HashSet<>();
         for (String interest : interests) {
-                List < Activity > currentRecommendedActivities =
-                        activityRepository.findActivitiesByCriteria(
-                                trip.getDestination(), trip.getStartDate(), trip.getEndDate(), interest) ;
-        currentRecommendedActivities
-                .stream()
-                .forEach(activity -> recommendedActivities.add(activity));
+            List<Activity> currentRecommendedActivities =
+                    activityRepository.findActivitiesByCriteria(
+                            trip.getDestination(), maxStartTime, minEndTime, interest,
+                            activityType.ordinal(), activityLocation, description);
+            currentRecommendedActivities
+                    .stream()
+                    .forEach(activity -> recommendedActivities.add(activity));
         }
 
         return recommendedActivities
@@ -89,3 +117,4 @@ public class ActivityService {
                 .collect(Collectors.toList());
     }
 }
+

@@ -2,14 +2,13 @@ package com.sofia.uni.fmi.travelly.controller;
 
 import com.sofia.uni.fmi.travelly.dto.*;
 import com.sofia.uni.fmi.travelly.mapper.*;
-import com.sofia.uni.fmi.travelly.model.Accommodation;
-import com.sofia.uni.fmi.travelly.model.Activity;
-import com.sofia.uni.fmi.travelly.model.TransportationOption;
-import com.sofia.uni.fmi.travelly.model.Trip;
+import com.sofia.uni.fmi.travelly.model.*;
 import com.sofia.uni.fmi.travelly.service.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -114,8 +113,14 @@ public class TripController {
     }
 
     @GetMapping("{tripId}/activities/recommend")
-    public List<ActivityDto> recommendActivities(@PathVariable Long tripId) {
-        List<Activity> recommendedActivities = activityService.recommendActivities(tripId);
+    public List<ActivityDto> recommendActivities(@PathVariable Long tripId,
+                                                 @RequestParam ActivityType activityType,
+                                                 @RequestParam(value = "location", required = false, defaultValue = "") String location,
+                                                 @RequestParam(value = "startDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+                                                 @RequestParam(value = "endDate", required = false, defaultValue = "1970-01-01T00:00:00") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+                                                 @RequestParam(value = "description", required = false, defaultValue = "") String description) {
+        List<Activity> recommendedActivities = activityService
+                .recommendActivities(tripId, activityType, location, startDate, endDate, description);
 
         List<ActivityDto> recommendedActivitiesDto =
                 recommendedActivities
