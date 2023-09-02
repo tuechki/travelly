@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemDto {
     private Long id;
-    private Trip trip;
     private String name;
     private String description;
     private Double amount;
