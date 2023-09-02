@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemCreateDto {
-    private Long id;
-    private Trip trip;
+public class ItemCreateUpdateDto {
     private String name;
     private String description;
     private Double amount;
