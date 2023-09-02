@@ -10,8 +10,8 @@ public class ActivityMapper {
     public ActivityDto toDto(Activity activity) {
         return ActivityDto.builder()
                 .id(activity.getId())
-                .activityType(activity.getActivityType())
-                .activityLocation(activity.getActivityLocation())
+                .type(activity.getType())
+                .location(activity.getLocation())
                 .startTime(activity.getStartTime())
                 .endTime(activity.getEndTime())
                 .description(activity.getDescription())
@@ -21,8 +21,8 @@ public class ActivityMapper {
     public Activity toEntity(ActivityDto activityDto) {
         return Activity.builder()
                 .id(activityDto.getId())
-                .activityType(activityDto.getActivityType())
-                .activityLocation(activityDto.getActivityLocation())
+                .type(activityDto.getType())
+                .location(activityDto.getLocation())
                 .startTime(activityDto.getStartTime())
                 .endTime(activityDto.getEndTime())
                 .description(activityDto.getDescription())
@@ -31,8 +31,8 @@ public class ActivityMapper {
 
     public ActivityCreateUpdateDto toCreateUpdateDto(Activity activity) {
         return ActivityCreateUpdateDto.builder()
-                .activityType(activity.getActivityType())
-                .activityLocation(activity.getActivityLocation())
+                .type(activity.getType())
+                .location(activity.getLocation())
                 .startTime(activity.getStartTime())
                 .endTime(activity.getEndTime())
                 .description(activity.getDescription())
@@ -41,8 +41,8 @@ public class ActivityMapper {
 
     public Activity toEntity(ActivityCreateUpdateDto activityCreateUpdateDto) {
         return Activity.builder()
-                .activityType(activityCreateUpdateDto.getActivityType())
-                .activityLocation(activityCreateUpdateDto.getActivityLocation())
+                .type(activityCreateUpdateDto.getType())
+                .location(activityCreateUpdateDto.getLocation())
                 .startTime(activityCreateUpdateDto.getStartTime())
                 .endTime(activityCreateUpdateDto.getEndTime())
                 .description(activityCreateUpdateDto.getDescription())

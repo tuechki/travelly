@@ -25,10 +25,10 @@ public class Activity {
     private Itinerary itinerary;
 
     @Column(name = "activity_type")
-    private ActivityType activityType;
+    private ActivityType type;
 
     @Column(name = "activity_location")
-    private String activityLocation;
+    private String location;
 
     @Column(name = "start_time")
     private LocalDateTime startTime;

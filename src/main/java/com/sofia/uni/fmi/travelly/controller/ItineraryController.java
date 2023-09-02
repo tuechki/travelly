@@ -60,6 +60,14 @@ public class ItineraryController {
         return updatedItineraryDto.getId();
     }
 
+    @GetMapping("{itineraryId}")
+    public ItineraryDto getItineraryById(@PathVariable Long itineraryId) {
+        Itinerary itinerary = itineraryService.getItineraryById(itineraryId);
+        ItineraryDto itineraryDto = itineraryMapper.toDto(itinerary);
+
+        return itineraryDto;
+    }
+
     @DeleteMapping("{itineraryId}")
     public void deleteItinerary(@PathVariable Long itineraryId) {
         itineraryService.deleteItinerary(itineraryId);
