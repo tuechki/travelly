@@ -1,7 +1,9 @@
 package com.sofia.uni.fmi.travelly.service;
 
+import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.TransportationOptionCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.mapper.TransportationOptionMapper;
+import com.sofia.uni.fmi.travelly.model.Activity;
 import com.sofia.uni.fmi.travelly.model.TransportationOption;
 import com.sofia.uni.fmi.travelly.model.Itinerary;
 import com.sofia.uni.fmi.travelly.repository.TransportationOptionRepository;
@@ -9,6 +11,7 @@ import com.sofia.uni.fmi.travelly.repository.ItineraryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,14 +34,22 @@ public class TransportationOptionService {
     }
 
 
-    public Long addTransportationOption(TransportationOptionCreateUpdateDto transportationOptionCreateUpdateDto, Long itineraryId) {
-        TransportationOption newTransportationOption =
-                transportationOptionMapper.toEntity(transportationOptionCreateUpdateDto);
-        Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
-        newTransportationOption.setItinerary(itinerary);
-        TransportationOption savedTransportationOption = transportationOptionRepository.save(newTransportationOption);
+    public List<Long> addTransportationOption(
+            List<TransportationOptionCreateUpdateDto> transportationOptionCreateUpdateDtoList, Long itineraryId) {
+        List<Long> savedTransportationOptionIds = new ArrayList<>();
 
-        return savedTransportationOption.getId();
+        for (TransportationOptionCreateUpdateDto transportationOptionCreateUpdateDto
+                : transportationOptionCreateUpdateDtoList) {
+            TransportationOption newTransportationOption =
+                    transportationOptionMapper.toEntity(transportationOptionCreateUpdateDto);
+            Itinerary itinerary = itineraryRepository.findById(itineraryId).get();
+            newTransportationOption.setItinerary(itinerary);
+            TransportationOption savedTransportationOption = transportationOptionRepository.save(newTransportationOption);
+
+            savedTransportationOptionIds.add(savedTransportationOption.getId());
+        }
+
+        return savedTransportationOptionIds;
     }
 
     @Transactional

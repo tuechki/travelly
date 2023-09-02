@@ -114,10 +114,10 @@ public class ItineraryController {
     }
 
     @PostMapping("{itineraryId}/transportationOptions")
-    public Long addTransportationOption(
+    public List<Long> addTransportationOption(
             @PathVariable Long itineraryId,
-            @RequestBody TransportationOptionCreateUpdateDto transportationOptionCreateUpdateDto) {
-        return transportationOptionService.addTransportationOption(transportationOptionCreateUpdateDto, itineraryId);
+            @RequestBody List<TransportationOptionCreateUpdateDto> transportationOptionCreateUpdateDtoList) {
+        return transportationOptionService.addTransportationOption(transportationOptionCreateUpdateDtoList, itineraryId);
     }
 
     @DeleteMapping("{itineraryId}/transportationOptions")
