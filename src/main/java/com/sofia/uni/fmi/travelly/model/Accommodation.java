@@ -33,4 +33,10 @@ public class Accommodation {
 
     @Column(name = "price")
     private Double pricePerNight;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 }
