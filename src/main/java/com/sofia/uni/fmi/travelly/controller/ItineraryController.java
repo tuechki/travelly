@@ -81,6 +81,14 @@ public class ItineraryController {
                 .toList();
     }
 
+    @GetMapping("{itineraryId}/activities/map")
+    public List<ActivityMapDto> getMapActivitiesByItineraryId(@PathVariable Long itineraryId) {
+        return activityService.getActivitiesByItineraryId(itineraryId)
+                .stream()
+                .map(activity -> activityMapper.toMapDto(activity))
+                .toList();
+    }
+
     @PostMapping("{itineraryId}/activities")
     public List<Long> addActivities(
             @PathVariable Long itineraryId,
@@ -101,6 +109,14 @@ public class ItineraryController {
                 .toList();
     }
 
+    @GetMapping("{itineraryId}/accommodations/map")
+    public List<AccommodationMapDto> getMapAccommodationsByItineraryId(@PathVariable Long itineraryId) {
+        return accommodationService.getAccommodationsByItineraryId(itineraryId)
+                .stream()
+                .map(accommodation -> accommodationMapper.toMapDto(accommodation))
+                .toList();
+    }
+
     @PostMapping("{itineraryId}/accommodations")
     public List<Long> addAccommodation(
             @PathVariable Long itineraryId,
@@ -118,6 +134,14 @@ public class ItineraryController {
         return transportationOptionService.getTransportationOptionsByItineraryId(itineraryId)
                 .stream()
                 .map(transportationOption -> transportationOptionMapper.toDto(transportationOption))
+                .toList();
+    }
+
+    @GetMapping("{itineraryId}/transportationOptions/map")
+    public List<TransportationOptionMapDto> getMapTransportationOptionsByItineraryId(@PathVariable Long itineraryId) {
+        return transportationOptionService.getTransportationOptionsByItineraryId(itineraryId)
+                .stream()
+                .map(transportationOption -> transportationOptionMapper.toMapDto(transportationOption))
                 .toList();
     }
 
