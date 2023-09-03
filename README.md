@@ -93,6 +93,155 @@ http://localhost:8080/swagger-ui-travelly.html
 On the Swagger UI page, you'll see a list of available APIs and their endpoints.
 Click on an endpoint to view detailed information about the request and response, including request parameters, response schemas, and example requests.
 
+### API Endpoints
+
+### User controller
+```bash
+GET
+/users/{userId}/trips
+
+POST
+/users/{userId}/trips
+
+POST
+/users/register
+
+POST
+/users/login
+
+PATCH
+/users
+
+GET
+/users/{userId}
+
+DELETE
+/users/{userId}
+```
+
+### Trip controller
+```bash
+GET
+/trips/{tripId}/itineraries
+
+POST
+/trips/{tripId}/itineraries
+
+DELETE
+/trips/{tripId}/itineraries
+
+GET
+/trips/{tripId}/items
+
+POST
+/trips/{tripId}/items
+
+DELETE
+/trips/{tripId}/items
+
+PATCH
+/trips
+
+GET
+/trips/{tripId}
+
+DELETE
+/trips/{tripId}
+
+GET
+/trips/{tripId}/transportationOptions/recommend
+
+GET
+/trips/{tripId}/activities/recommend
+
+GET
+/trips/{tripId}/accommodations/recommend
+```
+
+### Itinerary controller
+```bash
+GET
+/itineraries/{itineraryId}/transportationOptions
+
+POST
+/itineraries/{itineraryId}/transportationOptions
+
+DELETE
+/itineraries/{itineraryId}/transportationOptions
+
+GET
+/itineraries/{itineraryId}/activities
+
+POST
+/itineraries/{itineraryId}/activities
+
+DELETE
+/itineraries/{itineraryId}/activities
+
+GET
+/itineraries/{itineraryId}/accommodations
+
+POST
+/itineraries/{itineraryId}/accommodations
+
+DELETE
+/itineraries/{itineraryId}/accommodations
+
+GET
+/itineraries/{itineraryId}
+
+DELETE
+/itineraries/{itineraryId}
+
+PATCH
+/itineraries/{itineraryId}
+
+GET
+/itineraries/{itineraryId}/transportationOptions/map
+
+GET
+/itineraries/{itineraryId}/activities/map
+
+GET
+/itineraries/{itineraryId}/accommodations/map
+```
+
+### Transportation option controller
+```bash
+DELETE
+/transportationOption/{transportationOptionId}
+
+PATCH
+/transportationOption/{transportationOptionId}
+```
+
+### Item controller
+```bash
+DELETE
+/items/{itemId}
+
+PATCH
+/items/{itemId}
+```
+
+### Activity controller
+```bash
+DELETE
+/activities/{activityId}
+
+PATCH
+/activities/{activityId}
+```
+
+### Accommodation controller
+```bash
+DELETE
+/accommodation/{accommodationId}
+
+PATCH
+/accommodation/{accommodationId}
+```
+
 
 ### Making API Requests
 To test an API endpoint, click the "Try it out" button.
@@ -109,8 +258,3 @@ Contributions are welcome! If you find any issues or have improvements to sugges
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/license/mit/).
-
-
-
-
-**Free Software, Hell Yeah!**
