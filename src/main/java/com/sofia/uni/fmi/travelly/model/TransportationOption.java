@@ -32,4 +32,10 @@ public class TransportationOption {
 
     @Column(name = "price")
     private Double price;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 }

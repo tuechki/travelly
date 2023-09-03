@@ -2,6 +2,7 @@ package com.sofia.uni.fmi.travelly.mapper;
 
 import com.sofia.uni.fmi.travelly.dto.TransportationOptionCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.TransportationOptionDto;
+import com.sofia.uni.fmi.travelly.dto.TransportationOptionMapDto;
 import com.sofia.uni.fmi.travelly.model.TransportationOption;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,8 @@ public class TransportationOptionMapper {
                 .type(transportationOptionDto.getType())
                 .duration(transportationOptionDto.getDuration())
                 .price(transportationOptionDto.getPrice())
+                .latitude(transportationOptionDto.getLatitude())
+                .longitude(transportationOptionDto.getLongitude())
                 .build();
     }
 
@@ -22,6 +25,8 @@ public class TransportationOptionMapper {
                 .type(transportationOption.getType())
                 .duration(transportationOption.getDuration())
                 .price(transportationOption.getPrice())
+                .latitude(transportationOption.getLatitude())
+                .longitude(transportationOption.getLongitude())
                 .build();
     }
 
@@ -30,6 +35,8 @@ public class TransportationOptionMapper {
                 .type(transportationOptionCreateUpdateDto.getType())
                 .duration(transportationOptionCreateUpdateDto.getDuration())
                 .price(transportationOptionCreateUpdateDto.getPrice())
+                .latitude(transportationOptionCreateUpdateDto.getLatitude())
+                .longitude(transportationOptionCreateUpdateDto.getLongitude())
                 .build();
     }
 
@@ -38,6 +45,17 @@ public class TransportationOptionMapper {
                 .type(transportationOption.getType())
                 .duration(transportationOption.getDuration())
                 .price(transportationOption.getPrice())
+                .latitude(transportationOption.getLatitude())
+                .longitude(transportationOption.getLongitude())
+                .build();
+    }
+
+    public TransportationOptionMapDto toMapDto(TransportationOption transportationOption) {
+        return TransportationOptionMapDto.builder()
+                .type(transportationOption.getType())
+                .price(transportationOption.getPrice())
+                .latitude(transportationOption.getLatitude())
+                .longitude(transportationOption.getLongitude())
                 .build();
     }
 }
