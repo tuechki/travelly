@@ -14,4 +14,6 @@ public class AccommodationCreateUpdateDto {
     private String address;
     private String city;
     private Double pricePerNight;
+    private Double latitude;
+    private Double longitude;
 }
