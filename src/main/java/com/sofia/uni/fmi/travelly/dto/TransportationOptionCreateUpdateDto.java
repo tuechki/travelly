@@ -16,4 +16,6 @@ public class TransportationOptionCreateUpdateDto {
     private TransportationOptionType type;
     private LocalDateTime duration;
     private Double price;
+    private Double latitude;
+    private Double longitude;
 }

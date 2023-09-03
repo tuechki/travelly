@@ -19,4 +19,6 @@ public class ActivityDto {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String description;
+    private Double latitude;
+    private Double longitude;
 }

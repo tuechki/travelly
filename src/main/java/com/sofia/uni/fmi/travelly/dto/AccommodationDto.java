@@ -16,4 +16,6 @@ public class AccommodationDto {
     private String address;
     private String city;
     private Double pricePerNight;
+    private Double latitude;
+    private double longitude;
 }

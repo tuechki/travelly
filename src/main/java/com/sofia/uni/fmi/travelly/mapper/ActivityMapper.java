@@ -2,6 +2,7 @@ package com.sofia.uni.fmi.travelly.mapper;
 
 import com.sofia.uni.fmi.travelly.dto.ActivityCreateUpdateDto;
 import com.sofia.uni.fmi.travelly.dto.ActivityDto;
+import com.sofia.uni.fmi.travelly.dto.ActivityMapDto;
 import com.sofia.uni.fmi.travelly.model.Activity;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,8 @@ public class ActivityMapper {
                 .startTime(activity.getStartTime())
                 .endTime(activity.getEndTime())
                 .description(activity.getDescription())
+                .latitude(activity.getLatitude())
+                .longitude(activity.getLongitude())
                 .build();
     }
 
@@ -26,6 +29,8 @@ public class ActivityMapper {
                 .startTime(activityDto.getStartTime())
                 .endTime(activityDto.getEndTime())
                 .description(activityDto.getDescription())
+                .latitude(activityDto.getLatitude())
+                .longitude(activityDto.getLongitude())
                 .build();
     }
 
@@ -36,6 +41,8 @@ public class ActivityMapper {
                 .startTime(activity.getStartTime())
                 .endTime(activity.getEndTime())
                 .description(activity.getDescription())
+                .latitude(activity.getLatitude())
+                .longitude(activity.getLongitude())
                 .build();
     }
 
@@ -46,6 +53,19 @@ public class ActivityMapper {
                 .startTime(activityCreateUpdateDto.getStartTime())
                 .endTime(activityCreateUpdateDto.getEndTime())
                 .description(activityCreateUpdateDto.getDescription())
+                .latitude(activityCreateUpdateDto.getLatitude())
+                .longitude(activityCreateUpdateDto.getLongitude())
+                .build();
+    }
+
+    public ActivityMapDto toMapDto(Activity activity) {
+        return ActivityMapDto.builder()
+                .type(activity.getType())
+                .location(activity.getLocation())
+                .startTime(activity.getStartTime())
+                .endTime(activity.getEndTime())
+                .latitude(activity.getLatitude())
+                .longitude(activity.getLongitude())
                 .build();
     }
 }

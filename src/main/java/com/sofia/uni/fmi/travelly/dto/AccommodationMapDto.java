@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccommodationCreateUpdateDto {
+public class AccommodationMapDto {
     private String name;
     private String address;
     private String city;
     private Double pricePerNight;
-    private Double latitude;
     private Double longitude;
+    private Double latitude;
 }
