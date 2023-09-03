@@ -38,4 +38,10 @@ public class Activity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "latitude", columnDefinition = "double precision")
+    private Double latitude;
+
+    @Column(name = "longitude", columnDefinition = "double precision")
+    private Double longitude;
 }
