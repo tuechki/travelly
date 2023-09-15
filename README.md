@@ -2,6 +2,7 @@
 ## _The Best Travel App, Ever..._
 
 Welcome to the Travelly project! This repository contains a Java Spring Maven project for a travel management application.
+## Link to front end: https://github.com/panayot-marinov/travelly-frontend
 
 ## Features
 
