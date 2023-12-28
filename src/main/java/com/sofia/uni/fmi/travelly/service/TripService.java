@@ -36,7 +36,6 @@ public class TripService {
     public Long updateTrip(Trip trip) {
         Trip existingTrip = tripRepository.findById(trip.getId()).get();
         trip.setItineraries(existingTrip.getItineraries());
-//        trip.setUsers(existingTrip.getUsers());
         return tripRepository.save(trip).getId();
     }
 

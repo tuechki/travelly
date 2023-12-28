@@ -8,7 +8,7 @@ import com.sofia.uni.fmi.travelly.service.AccommodationService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("accommodation")
+@RequestMapping("accommodations")
 public class AccommodationController {
     private AccommodationService accommodationService;
     private AccommodationMapper accommodationMapper;
@@ -18,7 +18,7 @@ public class AccommodationController {
         this.accommodationMapper = accommodationMapper;
     }
 
-    @PatchMapping("{accommodationId}")
+    @PutMapping("{accommodationId}")
     public Long updateAccommodation(
             @PathVariable Long accommodationId,
             @RequestBody AccommodationCreateUpdateDto accommodationCreateUpdateDto) {

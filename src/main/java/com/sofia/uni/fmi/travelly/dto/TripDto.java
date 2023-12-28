@@ -31,6 +31,6 @@ public class TripDto {
 
     private String interests;
 
-    private List<Item> items;
+    private List<ItemDto> items;
 
 }
