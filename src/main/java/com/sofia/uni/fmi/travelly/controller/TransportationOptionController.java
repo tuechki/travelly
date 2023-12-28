@@ -8,7 +8,7 @@ import com.sofia.uni.fmi.travelly.service.TransportationOptionService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("transportationOption")
+@RequestMapping("transportationOptions")
 public class TransportationOptionController {
     private final TransportationOptionService transportationOptionService;
     private final TransportationOptionMapper transportationOptionMapper;

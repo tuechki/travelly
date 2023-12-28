@@ -4,10 +4,16 @@ import com.sofia.uni.fmi.travelly.dto.TripCreateDto;
 import com.sofia.uni.fmi.travelly.dto.TripDto;
 import com.sofia.uni.fmi.travelly.dto.TripListDto;
 import com.sofia.uni.fmi.travelly.model.Trip;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Component
 public class TripMapper {
+
+    @Autowired
+    private ItemMapper itemMapper;
 
     public TripDto toDto(Trip entity) {
         return TripDto.builder()
@@ -18,7 +24,9 @@ public class TripMapper {
                 .endDate(entity.getEndDate())
                 .budget(entity.getBudget())
                 .interests(entity.getInterests())
-                .items(entity.getItems())
+                .items(entity.getItems()
+                    .stream().map(item -> itemMapper.toDto(item))
+                    .collect(Collectors.toList()))
                 .build();
     }
 
@@ -42,7 +50,9 @@ public class TripMapper {
                 .endDate(dto.getEndDate())
                 .budget(dto.getBudget())
                 .interests(dto.getInterests())
-                .items(dto.getItems())
+                .items(dto.getItems()
+                    .stream().map(itemDto -> itemMapper.toEntity(itemDto))
+                    .collect(Collectors.toList()))
 //                .users(dto.getUsers())
                 .build();
     }
